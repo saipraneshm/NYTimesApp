@@ -8,7 +8,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.SearchView;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -16,10 +15,15 @@ import android.view.MenuItem;
 import com.codepath.assignment.newsapp.R;
 import com.codepath.assignment.newsapp.activity.abs.SingleFragmentActivity;
 import com.codepath.assignment.newsapp.fragment.NewsFeedFragment;
-import com.codepath.assignment.newsapp.fragment.VisibleFragment;
+import com.codepath.assignment.newsapp.fragment.abs.VisibleFragment;
 
 public class NewsFeedActivity extends SingleFragmentActivity {
 
+
+    @Override
+    protected int getLayoutResId() {
+        return super.getLayoutResId();
+    }
 
     @Override
     protected Fragment createFragment() {

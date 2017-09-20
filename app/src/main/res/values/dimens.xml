@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="default_elevation">8dp</dimen>
+    <dimen name="btn_fab_size">56dp</dimen>
+    <dimen name="btn_fab_margins">16dp</dimen>
+    <dimen name="rv_margin_32dp">32dp</dimen>
+    <dimen name="tv_margin">8dp</dimen>
+    <dimen name="rl_margin">8dp</dimen>
+</resources>

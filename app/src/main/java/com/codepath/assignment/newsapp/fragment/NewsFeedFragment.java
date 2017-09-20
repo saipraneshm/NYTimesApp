@@ -2,16 +2,25 @@ package com.codepath.assignment.newsapp.fragment;
 
 
 import android.content.SharedPreferences;
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.codepath.assignment.newsapp.R;
+import com.codepath.assignment.newsapp.activity.SettingsActivity;
+import com.codepath.assignment.newsapp.databinding.FragmentNewsFeedBinding;
+import com.codepath.assignment.newsapp.fragment.abs.VisibleFragment;
 import com.codepath.assignment.newsapp.models.Stories;
 import com.codepath.assignment.newsapp.network.ArticleSearchController;
 
@@ -28,6 +37,7 @@ public class NewsFeedFragment extends VisibleFragment implements SharedPreferenc
 
     private static final String TAG = NewsFeedFragment.class.getSimpleName();
     private static final String ARGS_SEARCH_QUERY = "ARGS_SEARCH_QUERY";
+    private FragmentNewsFeedBinding mNewsFeedBinding;
 
     public NewsFeedFragment() {
         // Required empty public constructor
@@ -51,7 +61,10 @@ public class NewsFeedFragment extends VisibleFragment implements SharedPreferenc
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_news_feed, container, false);
+        //View v = inflater.inflate(R.layout.fragment_news_feed, container, false);
+        mNewsFeedBinding = DataBindingUtil
+                .inflate(inflater, R.layout.fragment_news_feed, container, false);
+        ((AppCompatActivity)getActivity()).setSupportActionBar((Toolbar) mNewsFeedBinding.toolbar);
 
         PreferenceManager.getDefaultSharedPreferences(getActivity())
                 .registerOnSharedPreferenceChangeListener(this);
@@ -74,7 +87,7 @@ public class NewsFeedFragment extends VisibleFragment implements SharedPreferenc
             }
         });
         // Inflate the layout for this fragment
-        return v;
+        return mNewsFeedBinding.getRoot();
     }
 
     @Override
@@ -82,6 +95,24 @@ public class NewsFeedFragment extends VisibleFragment implements SharedPreferenc
         Log.d(TAG,"Got the query: " + query);
     }
 
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.search_menu,menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.menu_search: getActivity().onSearchRequested();
+                return true;
+            case R.id.menu_settings:
+                startActivity(SettingsActivity.newIntent(getActivity()));
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {

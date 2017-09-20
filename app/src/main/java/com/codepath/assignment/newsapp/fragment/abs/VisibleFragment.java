@@ -1,4 +1,4 @@
-package com.codepath.assignment.newsapp.fragment;
+package com.codepath.assignment.newsapp.fragment.abs;
 
 import android.support.v4.app.Fragment;
 
