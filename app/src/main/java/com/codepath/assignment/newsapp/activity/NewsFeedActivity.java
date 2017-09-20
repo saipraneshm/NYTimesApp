@@ -1,8 +1,9 @@
-package com.codepath.assignment.newsapp;
+package com.codepath.assignment.newsapp.activity;
 
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
+
+import com.codepath.assignment.newsapp.activity.abs.SingleFragmentActivity;
+import com.codepath.assignment.newsapp.fragment.NewsFeedFragment;
 
 public class NewsFeedActivity extends SingleFragmentActivity {
 

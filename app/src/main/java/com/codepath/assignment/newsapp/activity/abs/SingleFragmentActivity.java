@@ -1,4 +1,4 @@
-package com.codepath.assignment.newsapp;
+package com.codepath.assignment.newsapp.activity.abs;
 
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 
+import com.codepath.assignment.newsapp.R;
 import com.codepath.assignment.newsapp.databinding.LayoutFragmentContainerBinding;
 
 /**
@@ -24,7 +25,7 @@ public abstract class SingleFragmentActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        binding = DataBindingUtil.setContentView(this,R.layout.layout_fragment_container);
+        binding = DataBindingUtil.setContentView(this, R.layout.layout_fragment_container);
 
         FragmentManager fm = getSupportFragmentManager();
         Fragment fragment = fm.findFragmentById(R.id.fragment_container);
