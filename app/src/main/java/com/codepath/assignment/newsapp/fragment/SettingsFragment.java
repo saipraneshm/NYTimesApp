@@ -1,5 +1,7 @@
 package com.codepath.assignment.newsapp.fragment;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.preference.CheckBoxPreference;
@@ -10,18 +12,28 @@ import android.support.v7.preference.PreferenceScreen;
 
 import com.codepath.assignment.newsapp.R;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 /**
  * Created by saip92 on 9/19/2017.
  */
 
-public class SettingsFragment extends PreferenceFragmentCompat implements SharedPreferences.OnSharedPreferenceChangeListener {
+public class SettingsFragment extends PreferenceFragmentCompat implements
+        SharedPreferences.OnSharedPreferenceChangeListener {
+
+    private static final String OPEN_DATE_PICKER_DIALOG = "open_date_picker_dialog";
+    private static final int REQUEST_TO_OPEN_DIALOG = 1;
+    private Preference beingDatePref;
 
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
         addPreferencesFromResource(R.xml.pref_visualizer);
 
         SharedPreferences sharedPreferences = getPreferenceScreen().getSharedPreferences();
-        PreferenceScreen prefScreen = getPreferenceScreen();
+        /*PreferenceScreen prefScreen = getPreferenceScreen();
 
         int count = prefScreen.getPreferenceCount();
 
@@ -31,8 +43,37 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
                 String value = sharedPreferences.getString(p.getKey(),"");
                 setPreferenceSummary(p,value);
             }
-        }
+        }*/
 
+        setUpSortOrderPreference(sharedPreferences);
+        setUpBeingDatePreference(sharedPreferences);
+
+
+    }
+
+    private void setUpSortOrderPreference(SharedPreferences sharedPreferences){
+        ListPreference sortOrderPreference = (ListPreference)
+                findPreference(getString(R.string.pref_sort_key));
+        sortOrderPreference.setSummary(sharedPreferences
+                .getString(getString(R.string.pref_sort_key),
+                        getString(R.string.pref_sort_older_value)));
+    }
+
+    private void setUpBeingDatePreference(SharedPreferences sharedPreferences){
+        beingDatePref = findPreference(getString(R.string.pref_select_begin_date_key));
+        String value = sharedPreferences.getString(getString(R.string.pref_select_begin_date_key),"");
+        if(value.equals("")){
+            updateDate(new Date());
+        }else{
+            beingDatePref.setSummary(value);
+        }
+        beingDatePref.setOnPreferenceClickListener(preference -> {
+            String key = preference.getKey();
+            if(key.equals(getString(R.string.pref_select_begin_date_key))){
+                openDatePickerDialog();
+            }
+            return false;
+        });
     }
 
     private void setPreferenceSummary(Preference preference, String value){
@@ -43,6 +84,29 @@ public class SettingsFragment extends PreferenceFragmentCompat implements Shared
                 listPreference.setSummary(listPreference.getEntries()[prefIndex]);
             }
         }
+    }
+
+    private void openDatePickerDialog(){
+        DatePickerDialogFragment dialogFragment = DatePickerDialogFragment.newInstance(new Date());
+        dialogFragment.setTargetFragment(this, REQUEST_TO_OPEN_DIALOG);
+        dialogFragment.show(getActivity().getSupportFragmentManager(), OPEN_DATE_PICKER_DIALOG);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(resultCode != Activity.RESULT_OK) return;
+        if(requestCode == REQUEST_TO_OPEN_DIALOG){
+            Date date = (Date) data.getSerializableExtra(DatePickerDialogFragment.EXTRA_DATE);
+            updateDate(date);
+        }
+    }
+
+    private void updateDate(Date date) {
+        DateFormat dateFormat = SimpleDateFormat.getDateInstance(DateFormat.MEDIUM, Locale.US);
+        String strDate = dateFormat.format(date);
+        beingDatePref.setSummary(strDate);
+        getPreferenceScreen().getSharedPreferences().edit()
+                .putString(getString(R.string.pref_select_begin_date_key),strDate).apply();
     }
 
     @Override
