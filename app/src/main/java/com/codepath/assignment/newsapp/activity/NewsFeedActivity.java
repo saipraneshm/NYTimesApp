@@ -46,6 +46,10 @@ public class NewsFeedActivity extends SingleFragmentActivity {
             Fragment fragment = fm.findFragmentById(R.id.fragment_container);
             if(fragment != null){
                 ((VisibleFragment)fragment).handleSearchQuery(query);
+            }else{
+                fm.beginTransaction()
+                        .replace(R.id.fragment_container, NewsFeedFragment.newInstance(query))
+                        .commit();
             }
         }
     }
@@ -71,6 +75,9 @@ public class NewsFeedActivity extends SingleFragmentActivity {
         switch (item.getItemId()){
             case R.id.menu_search: //onSearchRequested();
                 //getSupportActionBar().hide();
+                return true;
+            case R.id.menu_settings:
+                startActivity(SettingsActivity.newIntent(this));
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

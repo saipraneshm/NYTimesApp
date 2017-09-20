@@ -3,5 +3,36 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="search_hint">Search NYTimes...</string>
+    <string name="search_hint">Search NYTimes…</string>
+    <string name="menu_search_title">Search</string>
+    <string name="menu_settings_title">Settings</string>
+
+    <string name="pref_article_label">Article</string>
+    <string name="pref_article_key" translatable="false">article_key</string>
+
+
+    <string name="pref_sports_label">Sports</string>
+    <string name="pref_sports_key" translatable="false">sports_key</string>
+
+    <string name="pref_fashion_label">Fashion</string>
+    <string name="pref_fashion_key" translatable="false">fashion_key</string>
+
+    <string name="pref_subscription_off" translatable="false">UnSubscribed</string>
+    <string name="pref_subscription_on" translatable="false">Subscribed</string>
+
+
+    <!-- Label for list preference -->
+
+    <string name="pref_sort_label">Sort By</string>
+    <string name="pref_sort_key" translatable="false">sort_key</string>
+
+    <!-- Label for list preference individual values -->
+
+    <string name="pref_sort_label_older">Older</string>
+    <!-- Value in shared preferences for older option -->
+    <string name="pref_sort_older_value" translatable="false">older</string>
+
+    <string name="pref_sort_label_newer">Newer</string>
+    <string name="pref_sort_newer_value" translatable="false">newer</string>
+
 </resources>
