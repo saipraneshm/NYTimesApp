@@ -15,5 +15,6 @@ public interface ArticleSearchAPI {
     @GET("articlesearch.json")
     Call<Stories> getStories(@Query("q") String query);
 
+
 }
 

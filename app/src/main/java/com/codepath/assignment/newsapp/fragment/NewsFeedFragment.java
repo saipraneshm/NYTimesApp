@@ -21,8 +21,10 @@ import retrofit2.Response;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class NewsFeedFragment extends Fragment {
+public class NewsFeedFragment extends VisibleFragment {
 
+
+    private static final String TAG = NewsFeedFragment.class.getSimpleName();
 
     public NewsFeedFragment() {
         // Required empty public constructor
@@ -60,4 +62,8 @@ public class NewsFeedFragment extends Fragment {
         return v;
     }
 
+    @Override
+    public void handleSearchQuery(String query) {
+        Log.d(TAG,"Got the query: " + query);
+    }
 }

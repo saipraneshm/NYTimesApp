@@ -35,6 +35,7 @@ public abstract class SingleFragmentActivity extends AppCompatActivity {
             fm.beginTransaction().replace(R.id.fragment_container, fragment).commit();
         }
 
-
     }
+
+
 }
