@@ -3,7 +3,8 @@
         xmlns:tools="http://schemas.android.com/tools">
     <RelativeLayout android:id="@+id/root"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:background="@color/colorGrey">
 
         <android.support.design.widget.CoordinatorLayout
             android:id="@+id/content"
@@ -18,10 +19,9 @@
                 android:scrollbars="none"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior">
                 <RelativeLayout
-                    android:id="@+id/rvNewsFeed"
+                    android:id="@+id/rlNewsFeed"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_margin="@dimen/rl_margin">
+                    android:layout_height="match_parent">
                     <TextView
                         android:id="@+id/tvHorizontalTitle"
                         android:layout_alignParentTop="true"
@@ -31,21 +31,25 @@
                         tools:text="@string/trending_news_stories_title"
                         android:layout_marginBottom="@dimen/tv_margin"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"/>
 
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/rvHorizontal"
                         android:layout_below="@id/tvHorizontalTitle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:visibility="gone"
                         android:layout_marginBottom="@dimen/rv_margin_32dp"/>
 
                     <TextView
                         android:id="@+id/tvVerticalTitle"
                         android:layout_below="@id/rvHorizontal"
                         tools:text="@string/subscribed_articles_title"
-                        style="@style/TextAppearance.AppCompat.Small"
-                        android:layout_marginBottom="@dimen/tv_margin"
+                        android:layout_marginLeft="@dimen/tv_margin_8dp"
+                        android:layout_marginStart="@dimen/tv_margin_8dp"
+                        style="@style/TextAppearance.AppCompat.Medium"
+                        android:text="@string/all_news_stories_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
 
@@ -53,7 +57,9 @@
                         android:id="@+id/rvVertical"
                         android:layout_below="@id/tvVerticalTitle"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/rl_margin"
+                        android:layout_marginEnd="8dp"/>
                 </RelativeLayout>
             </android.support.v4.widget.NestedScrollView>
 

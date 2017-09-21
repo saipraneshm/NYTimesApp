@@ -2,8 +2,11 @@ package com.codepath.assignment.newsapp.network;
 
 import com.codepath.assignment.newsapp.models.Stories;
 
+import java.util.Map;
+
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.HeaderMap;
 import retrofit2.http.Query;
 
 /**
@@ -15,6 +18,8 @@ public interface ArticleSearchAPI {
     @GET("articlesearch.json")
     Call<Stories> getStories(@Query("q") String query);
 
+    @GET("articlesearch.json")
+    Call<Stories> getStories(@HeaderMap Map<String,String> headers);
 
 }
 

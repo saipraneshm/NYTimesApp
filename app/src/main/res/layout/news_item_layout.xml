@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+                                    xmlns:tools="http://schemas.android.com/tools"
+                                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    app:cardCornerRadius="@dimen/default_card_radius"
+                                    android:layout_marginLeft="@dimen/cv_margin"
+                                    android:padding="@dimen/cv_default_padding"
+                                    android:layout_marginStart="@dimen/cv_margin"
+                                    android:layout_marginTop="@dimen/cv_margin"
+                                    app:cardElevation="@dimen/cardview_default_elevation"
+                                    >
+    <RelativeLayout
+        android:id="@+id/rvNewsItem"
+        android:layout_width="match_parent"
+        android:padding="@dimen/rl_padding"
+        android:layout_height="match_parent">
+        <ImageView
+            android:id="@+id/ivThumbnail"
+            android:layout_alignParentTop="true"
+            android:layout_centerInParent="true"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/ic_image_black_24px"
+            />
+        <TextView
+            android:id="@+id/tvHeadline"
+            android:layout_below="@id/ivThumbnail"
+            tools:text="Headline"
+            style="@style/Base.TextAppearance.AppCompat.Headline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/tv_margin_4dp"
+            />
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/btnCategory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvHeadline"
+            android:elevation="@dimen/default_elevation"
+            tools:text="CATEGORY"
+            style="@style/Base.Widget.AppCompat.Button.Colored"
+            android:layout_marginBottom="@dimen/btn_margin_4dp"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvSummary"
+            android:layout_below="@id/btnCategory"
+            android:maxLines="5"
+            android:ellipsize="end"
+            tools:text="@string/lorem_ipsum"/>
+
+
+    </RelativeLayout>
+
+</android.support.v7.widget.CardView>

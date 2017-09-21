@@ -27,6 +27,13 @@ public class Doc {
     @Expose
     private String id;
 
+    @SerializedName("new_desk")
+    @Expose
+    private String newDesk;
+
+    @SerializedName("snippet")
+    @Expose
+    private String snippet;
 
 
     public String getWebUrl() {
@@ -75,5 +82,21 @@ public class Doc {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getNewDesk() {
+        return newDesk;
+    }
+
+    public void setNewDesk(String newDesk) {
+        this.newDesk = newDesk;
+    }
+
+    public String getSnippet() {
+        return snippet;
+    }
+
+    public void setSnippet(String snippet) {
+        this.snippet = snippet;
     }
 }

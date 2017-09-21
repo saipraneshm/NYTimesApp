@@ -7,14 +7,14 @@
     <string name="menu_search_title">Search</string>
     <string name="menu_settings_title">Settings</string>
 
-    <string name="pref_article_label">Article</string>
-    <string name="pref_article_key" translatable="false">article_key</string>
+    <string name="pref_arts_label">Arts</string>
+    <string name="pref_arts_key" translatable="false">arts_key</string>
 
 
     <string name="pref_sports_label">Sports</string>
     <string name="pref_sports_key" translatable="false">sports_key</string>
 
-    <string name="pref_fashion_label">Fashion</string>
+    <string name="pref_fashion_label">Fashion &amp; Style</string>
     <string name="pref_fashion_key" translatable="false">fashion_key</string>
 
     <string name="pref_subscription_off" translatable="false">UnSubscribed</string>
@@ -25,6 +25,8 @@
 
     <string name="pref_sort_label">Sort By</string>
     <string name="pref_sort_key" translatable="false">sort_key</string>
+
+    <string name="pref_sort_default_value">older</string>
 
     <!-- Label for list preference individual values -->
 
@@ -43,6 +45,8 @@
     <string name="pref_select_begin_date_key">begin_date_key</string>
     <string name="trending_news_stories_title">Trending Now</string>
     <string name="subscribed_articles_title">Subscribed News Stories</string>
+    <string name="lorem_ipsum">\"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\"</string>
+    <string name="all_news_stories_title">All Stories</string>
 
 
 </resources>

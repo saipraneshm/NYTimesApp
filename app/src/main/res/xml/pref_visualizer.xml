@@ -3,11 +3,11 @@
                   xmlns:app="http://schemas.android.com/apk/res-auto">
     <PreferenceCategory android:title="@string/pref_news_desk_setting">
         <CheckBoxPreference
-            android:defaultValue="@bool/pref_default_article_value"
-            android:key="@string/pref_article_key"
+            android:defaultValue="@bool/pref_default_arts_value"
+            android:key="@string/pref_arts_key"
             android:summaryOff="@string/pref_subscription_off"
             android:summaryOn="@string/pref_subscription_on"
-            android:title="@string/pref_article_label"
+            android:title="@string/pref_arts_label"
             />
 
         <CheckBoxPreference
@@ -30,7 +30,7 @@
 
     <PreferenceCategory android:title="@string/pref_sort_order_setting">
         <ListPreference
-            android:defaultValue="@string/pref_sort_older_value"
+            android:defaultValue="@string/pref_sort_default_value"
             android:key="@string/pref_sort_key"
             android:title="@string/pref_sort_label"
             android:entries="@array/pref_sort_option_labels"

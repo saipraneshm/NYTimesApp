@@ -15,6 +15,9 @@ public class RetrofitClient {
     private volatile static Retrofit sRetrofit = null;
     private static final String API_KEY = "2aee84f7ad064b8b8d30590b1b72d895";
     private static final String API_KEY_QUERY = "api-key";
+    //Limiting the no.of fields in the output
+    private static final String FL_PARAMETERS = "headline,web_url,multimedia,lead_paragraph,_id,pub_date,byline,snippet,news_desk";
+
 
     public static Retrofit getClient(String baseUrl){
         if(sRetrofit == null){
@@ -22,10 +25,12 @@ public class RetrofitClient {
                   if(sRetrofit == null){
                       OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
                       httpClient.addInterceptor(chain -> {
+
                           Request original =  chain.request();
                           HttpUrl originalUrl = original.url();
                           HttpUrl url = originalUrl.newBuilder()
                                   .addQueryParameter(API_KEY_QUERY, API_KEY)
+                                  .addQueryParameter("fl",FL_PARAMETERS)
                                   .build();
 
                           // Request customization: add request headers

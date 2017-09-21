@@ -64,7 +64,7 @@ public class DatePickerDialogFragment extends DialogFragment {
                     int month1 = mDatePicker.getMonth();
                     int day1 = mDatePicker.getDayOfMonth();
                     Date date1 = new GregorianCalendar(year1, month1, day1).getTime();
-                    if(date1.getTime() < System.currentTimeMillis()){
+                    if(date1.getTime() > System.currentTimeMillis()){
                         date1 = new Date();
                     }
                     sendResult(Activity.RESULT_OK, date1);

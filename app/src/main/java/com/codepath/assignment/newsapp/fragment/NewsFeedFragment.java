@@ -8,6 +8,7 @@ import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,10 +20,15 @@ import android.view.ViewGroup;
 
 import com.codepath.assignment.newsapp.R;
 import com.codepath.assignment.newsapp.activity.SettingsActivity;
+import com.codepath.assignment.newsapp.adapter.NewsFeedAdapter;
 import com.codepath.assignment.newsapp.databinding.FragmentNewsFeedBinding;
 import com.codepath.assignment.newsapp.fragment.abs.VisibleFragment;
+import com.codepath.assignment.newsapp.models.NewsStory;
 import com.codepath.assignment.newsapp.models.Stories;
 import com.codepath.assignment.newsapp.network.ArticleSearchController;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -38,6 +44,8 @@ public class NewsFeedFragment extends VisibleFragment implements SharedPreferenc
     private static final String TAG = NewsFeedFragment.class.getSimpleName();
     private static final String ARGS_SEARCH_QUERY = "ARGS_SEARCH_QUERY";
     private FragmentNewsFeedBinding mNewsFeedBinding;
+    private NewsFeedAdapter mNewsFeedAdapter;
+    private List<NewsStory> mNewsStories;
 
     public NewsFeedFragment() {
         // Required empty public constructor
@@ -55,27 +63,45 @@ public class NewsFeedFragment extends VisibleFragment implements SharedPreferenc
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        mNewsStories = new ArrayList<>();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        //View v = inflater.inflate(R.layout.fragment_news_feed, container, false);
         mNewsFeedBinding = DataBindingUtil
                 .inflate(inflater, R.layout.fragment_news_feed, container, false);
-        ((AppCompatActivity)getActivity()).setSupportActionBar((Toolbar) mNewsFeedBinding.toolbar);
+        ((AppCompatActivity)getActivity()).setSupportActionBar(mNewsFeedBinding.toolbar);
 
+        StaggeredGridLayoutManager gridLayoutManager = new StaggeredGridLayoutManager(2,
+                StaggeredGridLayoutManager.VERTICAL);
+        mNewsFeedBinding.rvVertical.setLayoutManager(gridLayoutManager);
+        mNewsFeedAdapter = new NewsFeedAdapter(getActivity(),mNewsStories);
+        mNewsFeedBinding.rvVertical.setAdapter(mNewsFeedAdapter);
+        loadData(0);
+
+        //loadData();
         PreferenceManager.getDefaultSharedPreferences(getActivity())
                 .registerOnSharedPreferenceChangeListener(this);
-        ArticleSearchController c = new ArticleSearchController();
-        Call<Stories> call = c.getStories("Hurricane");
+
+        // Inflate the layout for this fragment
+        return mNewsFeedBinding.getRoot();
+    }
+
+    public void loadData(int page){
+        ArticleSearchController c = new ArticleSearchController(getActivity());
+        Call<Stories> call = c.getStories("Hurricane",page);
         call.enqueue(new Callback<Stories>() {
             @Override
             public void onResponse(Call<Stories> call, Response<Stories> response) {
                 if(response.isSuccessful()){
                     Stories stories = response.body();
-                   // Log.d("RESPONSE",response.body());
+                    if(stories != null){
+                        mNewsStories.clear();
+                        mNewsStories.addAll(stories.getNewsStories());
+                        mNewsFeedAdapter.notifyDataSetChanged();
+                    }
+
                 }else{
                     Log.e("RESPONSE", String.valueOf(response.errorBody()));
                 }
@@ -86,8 +112,6 @@ public class NewsFeedFragment extends VisibleFragment implements SharedPreferenc
                 t.printStackTrace();
             }
         });
-        // Inflate the layout for this fragment
-        return mNewsFeedBinding.getRoot();
     }
 
     @Override
@@ -116,9 +140,9 @@ public class NewsFeedFragment extends VisibleFragment implements SharedPreferenc
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-        if(key.equals(getString(R.string.pref_article_key))){
+        if(key.equals(getString(R.string.pref_arts_key))){
             Log.d(TAG,sharedPreferences
-                    .getBoolean(key,getResources().getBoolean(R.bool.pref_default_article_value))
+                    .getBoolean(key,getResources().getBoolean(R.bool.pref_default_arts_value))
                     +" ");
         }
     }

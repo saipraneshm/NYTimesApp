@@ -6,4 +6,11 @@
     <dimen name="rv_margin_32dp">32dp</dimen>
     <dimen name="tv_margin">8dp</dimen>
     <dimen name="rl_margin">8dp</dimen>
+    <dimen name="rl_padding">8dp</dimen>
+    <dimen name="tv_margin_4dp">4dp</dimen>
+    <dimen name="tv_margin_8dp">8dp</dimen>
+    <dimen name="btn_margin_4dp">4dp</dimen>
+    <dimen name="default_card_radius">4dp</dimen>
+    <dimen name="cv_margin">8dp</dimen>
+    <dimen name="cv_default_padding">8dp</dimen>
 </resources>

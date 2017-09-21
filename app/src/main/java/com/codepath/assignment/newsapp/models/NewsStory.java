@@ -12,6 +12,8 @@ public class NewsStory implements Parcelable {
     private String mByline;
     private String mId;
     private int mHits;
+    private String mNewsDesk;
+    private String mBriefStory;
 
     public String getHeadline() {
         return mHeadline;
@@ -61,6 +63,21 @@ public class NewsStory implements Parcelable {
         mId = id;
     }
 
+    public String getNewsDesk() {
+        return mNewsDesk;
+    }
+
+    public void setNewsDesk(String newsDesk) {
+        mNewsDesk = newsDesk;
+    }
+
+    public String getBriefStory() {
+        return mBriefStory;
+    }
+
+    public void setBriefStory(String briefStory) {
+        mBriefStory = briefStory;
+    }
 
     public int getHits() {
         return mHits;
@@ -72,16 +89,18 @@ public class NewsStory implements Parcelable {
 
     @Override
     public String toString() {
-        return "Headline " +
-                mHeadline +
-                ", mPubDate " +
-                mPubDate +
-                ", mPubDate " + mPubDate +
-                ", mWebUrl " + mWebUrl +
-                ", mThumbnailUrl " + mThumbnailUrl +
-                ", mByline " + mByline;
+        return "NewsStory{" +
+                "mHeadline='" + mHeadline + '\'' +
+                ", mPubDate='" + mPubDate + '\'' +
+                ", mWebUrl='" + mWebUrl + '\'' +
+                ", mThumbnailUrl='" + mThumbnailUrl + '\'' +
+                ", mByline='" + mByline + '\'' +
+                ", mId='" + mId + '\'' +
+                ", mHits=" + mHits +
+                ", mNewsDesk='" + mNewsDesk + '\'' +
+                ", mBriefStory='" + mBriefStory + '\'' +
+                '}';
     }
-
 
     @Override
     public int describeContents() {
