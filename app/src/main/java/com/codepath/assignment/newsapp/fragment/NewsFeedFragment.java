@@ -2,6 +2,7 @@ package com.codepath.assignment.newsapp.fragment;
 
 
 import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.databinding.DataBindingUtil;
@@ -12,6 +13,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.customtabs.CustomTabsIntent;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -35,6 +37,8 @@ import com.codepath.assignment.newsapp.fragment.abs.VisibleFragment;
 import com.codepath.assignment.newsapp.models.NewsStory;
 import com.codepath.assignment.newsapp.models.Stories;
 import com.codepath.assignment.newsapp.network.ArticleSearchController;
+import com.codepath.assignment.newsapp.receiver.ConnectivityBroadcastReceiver;
+import com.codepath.assignment.newsapp.utils.AppUtils;
 import com.codepath.assignment.newsapp.utils.EndlessRecyclerViewScrollListener;
 import com.codepath.assignment.newsapp.utils.ItemClickSupport;
 import com.codepath.assignment.newsapp.utils.QueryPreferences;
@@ -61,7 +65,8 @@ public class NewsFeedFragment extends VisibleFragment
     private List<NewsStory> mNewsStories;
     private String mQuery;
     private EndlessRecyclerViewScrollListener mScrollListener;
-    private static int requestCode = 100;
+    private Boolean hasPreferencesChanged = false;
+    private Boolean hasInternet = true;
 
     public NewsFeedFragment() {
         // Required empty public constructor
@@ -83,6 +88,15 @@ public class NewsFeedFragment extends VisibleFragment
         if(getArguments() != null){
             mQuery = getArguments().getString(ARGS_SEARCH_QUERY,null);
             if(mQuery != null) makeNewSearch();
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(hasPreferencesChanged){
+            Log.d(TAG,"calling make search <- preferences had changed");
+            makeNewSearch();
         }
     }
 
@@ -139,7 +153,7 @@ public class NewsFeedFragment extends VisibleFragment
             @Override
             public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
                 Log.d(TAG,"calling load more " + page);
-                loadData(page);
+                    loadData(page);
             }
         };
         mNewsFeedBinding.rvVertical.addOnScrollListener(mScrollListener);
@@ -147,7 +161,8 @@ public class NewsFeedFragment extends VisibleFragment
         ItemClickSupport.addTo(mNewsFeedBinding.rvVertical)
                 .setOnItemClickListener((recyclerView, position, v) -> {
                     Log.d(TAG, mNewsFeedAdapter.getNewsStory(position).toString());
-                    launchChromeTab(mNewsFeedAdapter.getNewsStory(position).getWebUrl());
+                    if(hasInternet)
+                        launchChromeTab(mNewsFeedAdapter.getNewsStory(position).getWebUrl());
                 });
 
     }
@@ -169,45 +184,52 @@ public class NewsFeedFragment extends VisibleFragment
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.setType("text/plain");
         intent.putExtra(Intent.EXTRA_TEXT,url);
+        int requestCode = 100;
         return PendingIntent.getActivity(getActivity(),
-                                                                requestCode,
+                requestCode,
                                                                 intent,
                                                                 PendingIntent.FLAG_UPDATE_CURRENT);
     }
 
     private void loadData(int page){
-        mNewsFeedBinding.swipeRefreshLayout.setRefreshing(true);
-        ArticleSearchController c = new ArticleSearchController(getActivity());
-        Call<Stories> call = c.getStories(mQuery,page);
-        call.enqueue(new Callback<Stories>() {
-            @Override
-            public void onResponse(Call<Stories> call, Response<Stories> response) {
-                Log.d(TAG,"Response code--> "+response.code());
-                mNewsFeedBinding.swipeRefreshLayout.setRefreshing(false);
-                if(response.code() != 200){
-                    Toast.makeText(getActivity(),R.string.no_more_date, Toast.LENGTH_SHORT).show();
-                }
-                if(response.isSuccessful()){
-                    Stories stories = response.body();
-                    if(stories != null){
-                        mNewsFeedAdapter.addMoreData(stories.getNewsStories());
+        if(hasInternet){
+            mNewsFeedBinding.swipeRefreshLayout.setRefreshing(true);
+            ArticleSearchController c = new ArticleSearchController(getActivity());
+            Call<Stories> call = c.getStories(mQuery,page);
+            call.enqueue(new Callback<Stories>() {
+                @Override
+                public void onResponse(Call<Stories> call, Response<Stories> response) {
+                    Log.d(TAG,"Response code--> "+response.code());
+                    mNewsFeedBinding.swipeRefreshLayout.setRefreshing(false);
+                    if(response.code() != 200){
+                        Toast.makeText(getActivity(),R.string.no_more_date, Toast.LENGTH_SHORT).show();
                     }
-                }else{
-                    Log.e("RESPONSE", String.valueOf(response.errorBody()));
+                    if(response.isSuccessful()){
+                        Stories stories = response.body();
+                        if(stories != null){
+                            mNewsFeedAdapter.addMoreData(stories.getNewsStories());
+                        }
+                    }else{
+                        Log.e("RESPONSE", String.valueOf(response.errorBody()));
+                    }
                 }
-            }
 
-            @Override
-            public void onFailure(Call<Stories> call, Throwable t) {
-                mNewsFeedBinding.swipeRefreshLayout.setRefreshing(false);
-                t.printStackTrace();
-            }
-        });
+                @Override
+                public void onFailure(Call<Stories> call, Throwable t) {
+                    mNewsFeedBinding.swipeRefreshLayout.setRefreshing(false);
+                    t.printStackTrace();
+                }
+            });
+        }else{
+            mNewsFeedBinding.swipeRefreshLayout.setRefreshing(false);
+            showNoInternetConnectionSnackbar();
+        }
+
     }
 
     //Resets state whenever a new search is made
     private void makeNewSearch(){
-        if(mNewsFeedAdapter != null && mScrollListener != null){
+        if(hasInternet && mNewsFeedAdapter != null && mScrollListener != null){
             mNewsStories.clear();
             mNewsFeedAdapter.notifyDataSetChanged();
             mScrollListener.resetState();
@@ -217,9 +239,52 @@ public class NewsFeedFragment extends VisibleFragment
 
     @Override
     public void handleSearchQuery(String query) {
-        Log.d(TAG,"Got the query: " + query);
+       // Log.d(TAG,"Got the query: " + query);
         mQuery = query;
         makeNewSearch();
+    }
+
+    @Override
+    protected BroadcastReceiver createConnectivityBroadcastReceiver() {
+        ConnectivityBroadcastReceiver receiver = new ConnectivityBroadcastReceiver();
+        receiver.setListener(isConnected -> {
+            if(hasInternet == isConnected){
+                return;
+            }
+
+            if(isConnected){
+                hasInternet = true;
+                showInternetConnectedSnackBar();
+                makeNewSearch();
+                //Log.d(TAG,"Connected to the internet");
+            }else{
+                hasInternet = false;
+                AppUtils.showNoInternetDialog(getActivity());
+                //Log.d(TAG,"Is not connected to the internet");
+            }
+        });
+        return receiver;
+    }
+
+
+    private void showInternetConnectedSnackBar(){
+        final Snackbar snackbar = Snackbar.make(mNewsFeedBinding.getRoot(),
+                R.string.connected_to_internet,
+                Snackbar.LENGTH_INDEFINITE);
+        snackbar.setActionTextColor
+                (ContextCompat.getColor(getActivity(),R.color.colorPrimary))
+                .setAction(android.R.string.cancel,
+                        view -> snackbar.dismiss()).show();
+    }
+
+    private void showNoInternetConnectionSnackbar(){
+        final Snackbar snackbar = Snackbar.make(mNewsFeedBinding.getRoot(),
+                R.string.not_connected_to_internet,
+                Snackbar.LENGTH_INDEFINITE);
+        snackbar.setActionTextColor
+                (ContextCompat.getColor(getActivity(),R.color.colorPrimary))
+                .setAction(android.R.string.cancel,
+                        view -> snackbar.dismiss()).show();
     }
 
 
@@ -243,11 +308,7 @@ public class NewsFeedFragment extends VisibleFragment
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-        if(key.equals(getString(R.string.pref_arts_key))){
-            Log.d(TAG,sharedPreferences
-                    .getBoolean(key,getResources().getBoolean(R.bool.pref_default_arts_value))
-                    +" ");
-        }
+        hasPreferencesChanged = true;
     }
 
 

@@ -49,6 +49,10 @@
     <string name="all_news_stories_title">All Stories</string>
     <string name="no_more_date">API error. Couldn\'t load more data</string>
     <string name="published_date">Published date</string>
+    <string name="no_internet_dialog_title">Not Connected To Internet !</string>
+    <string name="no_internet_dialog_message">Please try connecting to the internet to continue browsing news article</string>
+    <string name="connected_to_internet">Connected to internet</string>
+    <string name="not_connected_to_internet">Not Connected to Internet</string>
 
 
 </resources>
