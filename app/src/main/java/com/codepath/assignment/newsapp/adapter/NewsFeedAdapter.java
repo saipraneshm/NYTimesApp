@@ -1,8 +1,6 @@
 package com.codepath.assignment.newsapp.adapter;
 
 import android.content.Context;
-import android.support.annotation.Nullable;
-import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -14,12 +12,8 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.codepath.assignment.newsapp.R;
 import com.codepath.assignment.newsapp.models.NewsStory;
-import com.codepath.assignment.newsapp.utils.NewsFeedDiffCallback;
 
 import java.util.List;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * Created by saip92 on 9/21/2017.
@@ -89,16 +83,6 @@ public class NewsFeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         return mNewsStories.get(position);
     }
 
-    public void swapItems(List<NewsStory> newsStories){
-        final NewsFeedDiffCallback diffCallback = new NewsFeedDiffCallback(this.mNewsStories,newsStories);
-        final DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(diffCallback);
-
-        this.mNewsStories.clear();
-        this.mNewsStories.addAll(newsStories);
-
-        diffResult.dispatchUpdatesTo(this);
-
-    }
 
     public void addMoreData(List<NewsStory> newsStories){
         if(mNewsStories.size() >= 0){
@@ -117,7 +101,7 @@ public class NewsFeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
         AppCompatButton mBtnCategory;
 
-        TextView mTvSummary;
+        TextView mTvSummary, mTvPubDate;
 
         NewsFeedWithImageViewHolder(View itemView) {
             super(itemView);
@@ -126,6 +110,7 @@ public class NewsFeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             mTvHeadline = (TextView) itemView.findViewById(R.id.tvHeadline);
             mBtnCategory = (AppCompatButton) itemView.findViewById(R.id.btnCategory);
             mTvSummary = (TextView) itemView.findViewById(R.id.tvSummary);
+            mTvPubDate = (TextView) itemView.findViewById(R.id.tvPublishDate);
         }
 
         void bindNewsStory(NewsStory newsStory){
@@ -142,6 +127,7 @@ public class NewsFeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                     mBtnCategory.setVisibility(View.GONE);
 
                 mTvSummary.setText(newsStory.getBriefStory());
+                mTvPubDate.setText(newsStory.getPubDate());
             }
         }
     }
@@ -152,13 +138,14 @@ public class NewsFeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
         AppCompatButton mBtnCategory;
 
-        TextView mTvSummary;
+        TextView mTvSummary, mTvPubDate;
 
         NewsFeedWithoutImageViewHolder(View itemView) {
             super(itemView);
             mTvHeadline = (TextView) itemView.findViewById(R.id.tvHeadline);
             mBtnCategory = (AppCompatButton) itemView.findViewById(R.id.btnCategory);
             mTvSummary = (TextView) itemView.findViewById(R.id.tvSummary);
+            mTvPubDate = (TextView) itemView.findViewById(R.id.tvPublishDate);
         }
 
         void bindNewsStory(NewsStory newsStory){
@@ -172,6 +159,7 @@ public class NewsFeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             }
 
             mTvSummary.setText(newsStory.getBriefStory());
+            mTvPubDate.setText(newsStory.getPubDate());
         }
     }
 }

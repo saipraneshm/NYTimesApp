@@ -18,7 +18,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class RetrofitClient {
 
     private volatile static Retrofit sRetrofit = null;
-    private static final String API_KEY = "2aee84f7ad064b8b8d30590b1b72d895";
+    private static final String API_KEY = "ef51983c230b45528cb780ab41d6e0c0";
     private static final String API_KEY_QUERY = "api-key";
     //Limiting the no.of fields in the output
     private static final String FL_PARAMETERS = "headline,web_url,multimedia,lead_paragraph,_id,pub_date,byline,snippet,news_desk";

@@ -10,6 +10,7 @@ import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceFragmentCompat;
 
 import com.codepath.assignment.newsapp.R;
+import com.codepath.assignment.newsapp.utils.QueryPreferences;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -104,8 +105,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements
         DateFormat dateFormat = SimpleDateFormat.getDateInstance(DateFormat.MEDIUM, Locale.US);
         String strDate = dateFormat.format(date);
         beingDatePref.setSummary(strDate);
-        getPreferenceScreen().getSharedPreferences().edit()
-                .putString(getString(R.string.pref_select_begin_date_key),strDate).apply();
+        QueryPreferences.setBeginDatePref(getActivity(),date);
     }
 
     @Override

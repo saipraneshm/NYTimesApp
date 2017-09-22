@@ -28,7 +28,8 @@
             android:id="@+id/tvHeadline"
             android:layout_below="@id/ivThumbnail"
             tools:text="Headline"
-            style="@style/Base.TextAppearance.AppCompat.Headline"
+            style="@style/Base.TextAppearance.AppCompat.Medium"
+            android:textStyle="bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/tv_margin_4dp"
@@ -52,7 +53,17 @@
             android:layout_below="@id/btnCategory"
             android:maxLines="5"
             android:ellipsize="end"
+            android:layout_marginBottom="@dimen/tv_margin_8dp"
             tools:text="@string/lorem_ipsum"/>
+
+        <TextView
+            android:id="@+id/tvPublishDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvSummary"
+            tools:text="@string/published_date"
+            style="@style/Base.TextAppearance.AppCompat.Caption"
+            />
 
 
     </RelativeLayout>

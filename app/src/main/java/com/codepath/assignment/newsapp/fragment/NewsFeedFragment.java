@@ -14,6 +14,7 @@ import android.support.annotation.Nullable;
 import android.support.customtabs.CustomTabsIntent;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
@@ -24,6 +25,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.codepath.assignment.newsapp.R;
 import com.codepath.assignment.newsapp.activity.SettingsActivity;
@@ -35,6 +37,7 @@ import com.codepath.assignment.newsapp.models.Stories;
 import com.codepath.assignment.newsapp.network.ArticleSearchController;
 import com.codepath.assignment.newsapp.utils.EndlessRecyclerViewScrollListener;
 import com.codepath.assignment.newsapp.utils.ItemClickSupport;
+import com.codepath.assignment.newsapp.utils.QueryPreferences;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -89,7 +92,19 @@ public class NewsFeedFragment extends VisibleFragment
         mNewsFeedBinding = DataBindingUtil
                 .inflate(inflater, R.layout.fragment_news_feed, container, false);
         ((AppCompatActivity)getActivity()).setSupportActionBar(mNewsFeedBinding.toolbar);
+        mNewsFeedBinding.fab.setOnClickListener(view -> {
+            String newest = getString(R.string.pref_sort_newer_value);
+            String oldest = getString(R.string.pref_sort_older_value);
+
+            if(QueryPreferences.getSortPref(getActivity()).equals(newest)){
+                QueryPreferences.setSortPref(getActivity(),oldest);
+            }else{
+                QueryPreferences.setSortPref(getActivity(),newest);
+            }
+            makeNewSearch();
+        });
         setUpRecyclerView();
+        setupSwipeRefresh();
         loadData(0);
 
         PreferenceManager.getDefaultSharedPreferences(getActivity())
@@ -98,6 +113,21 @@ public class NewsFeedFragment extends VisibleFragment
         return mNewsFeedBinding.getRoot();
     }
 
+    private void setupSwipeRefresh(){
+        mNewsFeedBinding.swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                makeNewSearch();
+            }
+        });
+
+        mNewsFeedBinding.swipeRefreshLayout
+                .setColorSchemeColors
+                        (ContextCompat.getColor(getActivity(),android.R.color.holo_blue_bright),
+                        ContextCompat.getColor(getActivity(),android.R.color.holo_green_light),
+                        ContextCompat.getColor(getActivity(),android.R.color.holo_orange_light),
+                        ContextCompat.getColor(getActivity(),android.R.color.holo_red_light));
+    }
 
     private void setUpRecyclerView(){
         StaggeredGridLayoutManager gridLayoutManager = new StaggeredGridLayoutManager(2,
@@ -134,6 +164,7 @@ public class NewsFeedFragment extends VisibleFragment
         }
     }
 
+    //Prepares the pending intent for sharing the News Article
     private PendingIntent getPendingIntent(String url){
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.setType("text/plain");
@@ -145,19 +176,22 @@ public class NewsFeedFragment extends VisibleFragment
     }
 
     private void loadData(int page){
+        mNewsFeedBinding.swipeRefreshLayout.setRefreshing(true);
         ArticleSearchController c = new ArticleSearchController(getActivity());
         Call<Stories> call = c.getStories(mQuery,page);
         call.enqueue(new Callback<Stories>() {
             @Override
             public void onResponse(Call<Stories> call, Response<Stories> response) {
                 Log.d(TAG,"Response code--> "+response.code());
+                mNewsFeedBinding.swipeRefreshLayout.setRefreshing(false);
+                if(response.code() != 200){
+                    Toast.makeText(getActivity(),R.string.no_more_date, Toast.LENGTH_SHORT).show();
+                }
                 if(response.isSuccessful()){
                     Stories stories = response.body();
                     if(stories != null){
-                        //mNewsStories.clear();
                         mNewsFeedAdapter.addMoreData(stories.getNewsStories());
                     }
-
                 }else{
                     Log.e("RESPONSE", String.valueOf(response.errorBody()));
                 }
@@ -165,11 +199,13 @@ public class NewsFeedFragment extends VisibleFragment
 
             @Override
             public void onFailure(Call<Stories> call, Throwable t) {
+                mNewsFeedBinding.swipeRefreshLayout.setRefreshing(false);
                 t.printStackTrace();
             }
         });
     }
 
+    //Resets state whenever a new search is made
     private void makeNewSearch(){
         if(mNewsFeedAdapter != null && mScrollListener != null){
             mNewsStories.clear();

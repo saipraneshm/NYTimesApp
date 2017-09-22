@@ -1,67 +1,30 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools">
-    <RelativeLayout android:id="@+id/root"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@color/colorGrey">
 
         <android.support.design.widget.CoordinatorLayout
             android:id="@+id/content"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@color/colorGrey"
             android:orientation="vertical">
 
-            <android.support.v4.widget.NestedScrollView
-                android:id="@+id/nsvFeed"
+            <android.support.v4.widget.SwipeRefreshLayout
+                android:id="@+id/swipeRefreshLayout"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scrollbars="none"
+                android:layout_height="wrap_content"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior">
-                <RelativeLayout
-                    android:id="@+id/rlNewsFeed"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-                    <TextView
-                        android:id="@+id/tvHorizontalTitle"
-                        android:layout_alignParentTop="true"
-                        android:layout_alignParentLeft="true"
-                        android:layout_alignParentStart="true"
-                        style="@style/TextAppearance.AppCompat.Small"
-                        tools:text="@string/trending_news_stories_title"
-                        android:layout_marginBottom="@dimen/tv_margin"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:visibility="gone"/>
-
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/rvHorizontal"
-                        android:layout_below="@id/tvHorizontalTitle"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:visibility="gone"
-                        android:layout_marginBottom="@dimen/rv_margin_32dp"/>
-
-                    <TextView
-                        android:id="@+id/tvVerticalTitle"
-                        android:layout_below="@id/rvHorizontal"
-                        tools:text="@string/subscribed_articles_title"
-                        android:layout_marginLeft="@dimen/tv_margin_8dp"
-                        android:layout_marginStart="@dimen/tv_margin_8dp"
-                        style="@style/TextAppearance.AppCompat.Medium"
-                        android:text="@string/all_news_stories_title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
 
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/rvVertical"
-                        android:layout_below="@id/tvVerticalTitle"
+                        android:layout_alignParentTop="true"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="@dimen/rl_margin"
                         android:layout_marginEnd="8dp"/>
-                </RelativeLayout>
-            </android.support.v4.widget.NestedScrollView>
+
+            </android.support.v4.widget.SwipeRefreshLayout>
+
 
             <android.support.design.widget.AppBarLayout
                 android:id="@+id/appBarLayout"
@@ -87,12 +50,13 @@
             </android.support.design.widget.AppBarLayout>
 
             <android.support.design.widget.FloatingActionButton
-                android:id="@+id/btnCreate"
+                android:id="@+id/fab"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|right"
                 android:layout_marginBottom="@dimen/btn_fab_margins"
                 android:layout_marginRight="@dimen/btn_fab_margins"
+                android:layout_marginEnd="@dimen/btn_fab_margins"
                 android:src="@drawable/ic_sort_black_24dp"
                 app:borderWidth="0dp"
                 app:elevation="6dp"
@@ -100,7 +64,7 @@
 
         </android.support.design.widget.CoordinatorLayout>
 
-    </RelativeLayout>
+
 
 
 </layout>
