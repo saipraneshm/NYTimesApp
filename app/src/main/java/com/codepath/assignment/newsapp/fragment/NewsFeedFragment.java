@@ -1,12 +1,19 @@
 package com.codepath.assignment.newsapp.fragment;
 
 
+import android.app.PendingIntent;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.databinding.DataBindingUtil;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
+import android.support.customtabs.CustomTabsIntent;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
@@ -51,6 +58,7 @@ public class NewsFeedFragment extends VisibleFragment
     private List<NewsStory> mNewsStories;
     private String mQuery;
     private EndlessRecyclerViewScrollListener mScrollListener;
+    private static int requestCode = 100;
 
     public NewsFeedFragment() {
         // Required empty public constructor
@@ -109,8 +117,31 @@ public class NewsFeedFragment extends VisibleFragment
         ItemClickSupport.addTo(mNewsFeedBinding.rvVertical)
                 .setOnItemClickListener((recyclerView, position, v) -> {
                     Log.d(TAG, mNewsFeedAdapter.getNewsStory(position).toString());
+                    launchChromeTab(mNewsFeedAdapter.getNewsStory(position).getWebUrl());
                 });
 
+    }
+
+    private void launchChromeTab(String url){
+        if(url != null){
+            CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
+            CustomTabsIntent customTabsIntent = builder.build();
+            builder.setToolbarColor(ContextCompat.getColor(getActivity(), R.color.colorGreen));
+            builder.addDefaultShareMenuItem();
+            Bitmap bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.ic_share_white_24dp);
+            builder.setActionButton(bitmap, "Share Link", getPendingIntent(url), true);
+            customTabsIntent.launchUrl(getActivity(), Uri.parse(url));
+        }
+    }
+
+    private PendingIntent getPendingIntent(String url){
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("text/plain");
+        intent.putExtra(Intent.EXTRA_TEXT,url);
+        return PendingIntent.getActivity(getActivity(),
+                                                                requestCode,
+                                                                intent,
+                                                                PendingIntent.FLAG_UPDATE_CURRENT);
     }
 
     private void loadData(int page){
