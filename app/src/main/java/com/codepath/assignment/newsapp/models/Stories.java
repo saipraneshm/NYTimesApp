@@ -103,7 +103,7 @@ public class Stories {
                 newsStory.setPubDate("Not available");
             }
             newsStories.add(newsStory);
-            Log.d("RESPONSE",newsStory.toString());
+           // Log.d("RESPONSE",newsStory.toString());
         }
         return newsStories;
     }

@@ -64,13 +64,15 @@ public class ArticleSearchController {
 
         queries.put(SORT_PARAM,QueryPreferences.getSortPref(mContext));
 
-        if(query != null && TextUtils.isEmpty(query)){
+        if(query != null && !TextUtils.isEmpty(query)){
             queries.put(Q_PARAM, query);
         }
 
         if(page >= 0){
             queries.put(PAGE_PARAM,String.valueOf(page));
         }
+
+        Log.d(TAG,queries.toString() + " hash map values");
 
         return mArticleSearchAPI.getStories(queries);
     }

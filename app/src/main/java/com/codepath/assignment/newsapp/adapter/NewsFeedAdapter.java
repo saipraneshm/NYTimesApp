@@ -100,6 +100,15 @@ public class NewsFeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     }
 
+    public void addMoreData(List<NewsStory> newsStories){
+        if(mNewsStories.size() >= 0){
+            int oldSize = mNewsStories.size();
+            mNewsStories.addAll(newsStories);
+            notifyItemRangeChanged(oldSize, mNewsStories.size());
+        }
+
+    }
+
     private class NewsFeedWithImageViewHolder extends RecyclerView.ViewHolder{
 
         ImageView mIvThumbnail;
