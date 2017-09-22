@@ -1,5 +1,10 @@
 package com.codepath.assignment.newsapp.network;
 
+import android.app.Application;
+
+import com.codepath.assignment.newsapp.utils.MCApplication;
+
+import okhttp3.Cache;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -24,6 +29,8 @@ public class RetrofitClient {
             synchronized (RetrofitClient.class){
                   if(sRetrofit == null){
                       OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
+                      int cacheSize = 10 * 1024 * 1024; // 10 MB
+                      Cache cache = new Cache(MCApplication.getAppContext().getCacheDir(), cacheSize);
                       httpClient.addInterceptor(chain -> {
 
                           Request original =  chain.request();
@@ -40,6 +47,8 @@ public class RetrofitClient {
                           Request request = requestBuilder.build();
                           return chain.proceed(request);
                       });
+
+                      httpClient.cache(cache);
                       sRetrofit = new Retrofit.Builder()
                               .baseUrl(baseUrl)
                               .callFactory(httpClient.build())

@@ -8,7 +8,6 @@ import android.support.v7.preference.CheckBoxPreference;
 import android.support.v7.preference.ListPreference;
 import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceFragmentCompat;
-import android.support.v7.preference.PreferenceScreen;
 
 import com.codepath.assignment.newsapp.R;
 
@@ -46,7 +45,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements
         }*/
 
         setUpSortOrderPreference(sharedPreferences);
-        setUpBeingDatePreference(sharedPreferences);
+        setUpBeginDatePreference(sharedPreferences);
 
 
     }
@@ -59,7 +58,7 @@ public class SettingsFragment extends PreferenceFragmentCompat implements
                         getString(R.string.pref_sort_older_value)));
     }
 
-    private void setUpBeingDatePreference(SharedPreferences sharedPreferences){
+    private void setUpBeginDatePreference(SharedPreferences sharedPreferences){
         beingDatePref = findPreference(getString(R.string.pref_select_begin_date_key));
         String value = sharedPreferences.getString(getString(R.string.pref_select_begin_date_key),"");
         if(value.equals("")){

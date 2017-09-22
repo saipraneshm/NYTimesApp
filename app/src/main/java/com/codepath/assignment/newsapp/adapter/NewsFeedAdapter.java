@@ -2,6 +2,7 @@ package com.codepath.assignment.newsapp.adapter;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
+import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.codepath.assignment.newsapp.R;
 import com.codepath.assignment.newsapp.models.NewsStory;
+import com.codepath.assignment.newsapp.utils.NewsFeedDiffCallback;
 
 import java.util.List;
 
@@ -83,23 +85,33 @@ public class NewsFeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         return (mNewsStories.get(position).getThumbnailUrl() != null )? WITH_IMAGE : WITHOUT_IMAGE;
     }
 
-    class NewsFeedWithImageViewHolder extends RecyclerView.ViewHolder{
+    public NewsStory getNewsStory(int position){
+        return mNewsStories.get(position);
+    }
 
-        //@BindView(R.id.ivThumbnail)
+    public void swapItems(List<NewsStory> newsStories){
+        final NewsFeedDiffCallback diffCallback = new NewsFeedDiffCallback(this.mNewsStories,newsStories);
+        final DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(diffCallback);
+
+        this.mNewsStories.clear();
+        this.mNewsStories.addAll(newsStories);
+
+        diffResult.dispatchUpdatesTo(this);
+
+    }
+
+    private class NewsFeedWithImageViewHolder extends RecyclerView.ViewHolder{
+
         ImageView mIvThumbnail;
 
-        //@BindView(R.id.tvHeadline)
         TextView mTvHeadline;
 
-        //@BindView(R.id.btnCategory)
         AppCompatButton mBtnCategory;
 
-       // @BindView(R.id.tvSummary)
         TextView mTvSummary;
 
-        public NewsFeedWithImageViewHolder(View itemView) {
+        NewsFeedWithImageViewHolder(View itemView) {
             super(itemView);
-            //ButterKnife.bind(this,itemView);
 
             mIvThumbnail = (ImageView) itemView.findViewById(R.id.ivThumbnail);
             mTvHeadline = (TextView) itemView.findViewById(R.id.tvHeadline);
@@ -125,20 +137,16 @@ public class NewsFeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         }
     }
 
-    class NewsFeedWithoutImageViewHolder extends RecyclerView.ViewHolder{
+    private class NewsFeedWithoutImageViewHolder extends RecyclerView.ViewHolder{
 
-       // @BindView(R.id.tvHeadline)
         TextView mTvHeadline;
 
-      //  @BindView(R.id.btnCategory)
         AppCompatButton mBtnCategory;
 
-      //  @BindView(R.id.tvSummary)
         TextView mTvSummary;
 
-        public NewsFeedWithoutImageViewHolder(View itemView) {
+        NewsFeedWithoutImageViewHolder(View itemView) {
             super(itemView);
-           // ButterKnife.bind(this,itemView);
             mTvHeadline = (TextView) itemView.findViewById(R.id.tvHeadline);
             mBtnCategory = (AppCompatButton) itemView.findViewById(R.id.btnCategory);
             mTvSummary = (TextView) itemView.findViewById(R.id.tvSummary);
