@@ -10,6 +10,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.customtabs.CustomTabsIntent;
@@ -175,6 +176,8 @@ public class NewsFeedFragment extends VisibleFragment
             builder.addDefaultShareMenuItem();
             Bitmap bitmap = BitmapFactory.decodeResource(getResources(),R.drawable.ic_share_white_24dp);
             builder.setActionButton(bitmap, "Share Link", getPendingIntent(url), true);
+            builder.setStartAnimations(getActivity(),R.anim.slide_in_from_right, R.anim.slide_out_to_left);
+            builder.setExitAnimations(getActivity(),R.anim.slide_in_from_left, R.anim.slide_out_to_right);
             customTabsIntent.launchUrl(getActivity(), Uri.parse(url));
         }
     }
@@ -202,7 +205,8 @@ public class NewsFeedFragment extends VisibleFragment
                     Log.d(TAG,"Response code--> "+response.code());
                     mNewsFeedBinding.swipeRefreshLayout.setRefreshing(false);
                     if(response.code() != 200){
-                        Toast.makeText(getActivity(),R.string.no_more_date, Toast.LENGTH_SHORT).show();
+                        new Handler().postDelayed(() -> loadData((page)), 200);
+                        //Toast.makeText(getActivity(),R.string.no_more_date, Toast.LENGTH_SHORT).show();
                     }
                     if(response.isSuccessful()){
                         Stories stories = response.body();
@@ -222,7 +226,7 @@ public class NewsFeedFragment extends VisibleFragment
             });
         }else{
             mNewsFeedBinding.swipeRefreshLayout.setRefreshing(false);
-            showNoInternetConnectionSnackbar();
+            showNoInternetConnectionSnackBar();
         }
 
     }
@@ -277,7 +281,7 @@ public class NewsFeedFragment extends VisibleFragment
                         view -> snackbar.dismiss()).show();
     }
 
-    private void showNoInternetConnectionSnackbar(){
+    private void showNoInternetConnectionSnackBar(){
         final Snackbar snackbar = Snackbar.make(mNewsFeedBinding.getRoot(),
                 R.string.not_connected_to_internet,
                 Snackbar.LENGTH_INDEFINITE);
