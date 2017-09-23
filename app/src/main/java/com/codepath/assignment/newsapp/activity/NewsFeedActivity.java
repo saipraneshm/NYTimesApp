@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.SearchView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -15,10 +16,13 @@ import android.view.MenuItem;
 import com.codepath.assignment.newsapp.R;
 import com.codepath.assignment.newsapp.activity.abs.SingleFragmentActivity;
 import com.codepath.assignment.newsapp.fragment.NewsFeedFragment;
+import com.codepath.assignment.newsapp.fragment.SettingsDialogFragment;
 import com.codepath.assignment.newsapp.fragment.abs.VisibleFragment;
 
 public class NewsFeedActivity extends SingleFragmentActivity {
 
+
+    private static final String OPEN_SETTINGS_DIALOG = "OpenSettingsDialog";
 
     @Override
     protected int getLayoutResId() {
@@ -82,11 +86,18 @@ public class NewsFeedActivity extends SingleFragmentActivity {
                 return true;
             case R.id.menu_settings:
                 startActivity(SettingsActivity.newIntent(this));
+                //initializeDialogFragment();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
 
+    }
+
+    public void initializeDialogFragment(){
+        Log.d("NewsFeedActivity","calling intiliazeDialogFragment");
+        SettingsDialogFragment dialogFragment = new SettingsDialogFragment();
+        dialogFragment.show(getSupportFragmentManager(), OPEN_SETTINGS_DIALOG);
     }
 
 

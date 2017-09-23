@@ -79,4 +79,17 @@ public class QueryPreferences {
                 .edit()
                 .putString(context.getString(R.string.pref_select_begin_date_key),strDate).apply();
     }
+
+    private static void setSettingsDialogPref(Context context, Boolean isModern){
+        PreferenceManager.getDefaultSharedPreferences(context)
+                .edit()
+                .putBoolean(context.getString(R.string.pref_settings_dialog_key),isModern)
+                .apply();
+    }
+
+    private boolean getSettingsDialoPref(Context context){
+        return PreferenceManager.getDefaultSharedPreferences(context)
+                .getBoolean(context.getString(R.string.pref_settings_dialog_key),
+                        context.getResources().getBoolean(R.bool.pref_default_settings_dialog_value));
+    }
 }

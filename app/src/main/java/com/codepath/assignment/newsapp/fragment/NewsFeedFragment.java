@@ -28,10 +28,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.codepath.assignment.newsapp.R;
-import com.codepath.assignment.newsapp.activity.SettingsActivity;
 import com.codepath.assignment.newsapp.adapter.NewsFeedAdapter;
 import com.codepath.assignment.newsapp.databinding.FragmentNewsFeedBinding;
 import com.codepath.assignment.newsapp.fragment.abs.VisibleFragment;
@@ -292,6 +290,8 @@ public class NewsFeedFragment extends VisibleFragment
     }
 
 
+
+
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.search_menu,menu);
@@ -303,7 +303,6 @@ public class NewsFeedFragment extends VisibleFragment
             case R.id.menu_search: getActivity().onSearchRequested();
                 return true;
             case R.id.menu_settings:
-                startActivity(SettingsActivity.newIntent(getActivity()));
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

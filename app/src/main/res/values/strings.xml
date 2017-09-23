@@ -53,6 +53,17 @@
     <string name="no_internet_dialog_message">Please try connecting to the internet to continue browsing news article</string>
     <string name="connected_to_internet">Connected to internet</string>
     <string name="not_connected_to_internet">Not Connected to Internet</string>
+    <string name="begin_date_title">Begin Date</string>
+    <string name="sort_order_title">Sort Order</string>
+    <string name="news_desk_title">News Desk Values</string>
+    <string name="arts_value">Arts</string>
+    <string name="fashion_title">Fashion &amp; Style</string>
+    <string name="sports_title">Sports</string>
+    <string name="modern_overlay_title">Modern Overlay</string>
+    <string name="save_settings">Save</string>
+    <string name="pref_settings_dialog_title">Modal Overlay</string>
+    <string name="pref_settings_dialog_key">settings_dialog_key</string>
+    <string name="modelOverlaySummary">Displays a dialog</string>
 
 
 </resources>
