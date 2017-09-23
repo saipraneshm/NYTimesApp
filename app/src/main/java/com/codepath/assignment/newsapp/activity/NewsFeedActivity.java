@@ -18,6 +18,7 @@ import com.codepath.assignment.newsapp.activity.abs.SingleFragmentActivity;
 import com.codepath.assignment.newsapp.fragment.NewsFeedFragment;
 import com.codepath.assignment.newsapp.fragment.SettingsDialogFragment;
 import com.codepath.assignment.newsapp.fragment.abs.VisibleFragment;
+import com.codepath.assignment.newsapp.utils.QueryPreferences;
 
 public class NewsFeedActivity extends SingleFragmentActivity {
 
@@ -85,8 +86,11 @@ public class NewsFeedActivity extends SingleFragmentActivity {
                 //getSupportActionBar().hide();
                 return true;
             case R.id.menu_settings:
-                startActivity(SettingsActivity.newIntent(this));
-                //initializeDialogFragment();
+                if(QueryPreferences.getSettingsDialoPref(NewsFeedActivity.this)){
+                    initializeDialogFragment();
+                }else{
+                    startActivity(SettingsActivity.newIntent(this));
+                }
                 return true;
             default:
                 return super.onOptionsItemSelected(item);

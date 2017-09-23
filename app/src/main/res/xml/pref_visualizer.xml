@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
                   xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <SwitchPreferenceCompat
+        android:defaultValue="@bool/pref_default_settings_dialog_value"
+        android:key="@string/pref_settings_dialog_key"
+        android:title="@string/pref_settings_dialog_title"
+        android:summary="@string/modelOverlaySummary"
+        />
+
     <PreferenceCategory android:title="@string/pref_news_desk_setting">
         <CheckBoxPreference
             android:defaultValue="@bool/pref_default_arts_value"
@@ -11,6 +19,14 @@
             />
 
         <CheckBoxPreference
+            android:defaultValue="@bool/pref_default_fashion_value"
+            android:key="@string/pref_fashion_key"
+            android:summaryOff="@string/pref_subscription_off"
+            android:summaryOn="@string/pref_subscription_on"
+            android:title="@string/pref_fashion_label"
+            />
+
+        <CheckBoxPreference
             android:defaultValue="@bool/pref_default_sports_value"
             android:key="@string/pref_sports_key"
             android:summaryOff="@string/pref_subscription_off"
@@ -18,13 +34,6 @@
             android:title="@string/pref_sports_label"
             />
 
-        <CheckBoxPreference
-            android:defaultValue="@bool/pref_default_fashion_value"
-            android:key="@string/pref_fashion_key"
-            android:summaryOff="@string/pref_subscription_off"
-            android:summaryOn="@string/pref_subscription_on"
-            android:title="@string/pref_fashion_label"
-            />
     </PreferenceCategory>
 
 
@@ -43,8 +52,6 @@
                     android:key="@string/pref_select_begin_date_key"
             />
     </PreferenceCategory>
-
-
 
 
 </PreferenceScreen>

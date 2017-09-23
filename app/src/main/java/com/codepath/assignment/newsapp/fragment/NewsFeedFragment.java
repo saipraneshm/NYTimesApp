@@ -28,6 +28,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.codepath.assignment.newsapp.R;
 import com.codepath.assignment.newsapp.adapter.NewsFeedAdapter;
@@ -66,6 +67,7 @@ public class NewsFeedFragment extends VisibleFragment
     private EndlessRecyclerViewScrollListener mScrollListener;
     private Boolean hasPreferencesChanged = false;
     private Boolean hasInternet = true;
+    private static int sRetryCount = 5;
 
     public NewsFeedFragment() {
         // Required empty public constructor
@@ -93,6 +95,7 @@ public class NewsFeedFragment extends VisibleFragment
     @Override
     public void onResume() {
         super.onResume();
+        Log.d(TAG,"onResume has been called");
         if(hasPreferencesChanged){
             Log.d(TAG,"calling make search <- preferences had changed");
             makeNewSearch();
@@ -203,10 +206,15 @@ public class NewsFeedFragment extends VisibleFragment
                     Log.d(TAG,"Response code--> "+response.code());
                     mNewsFeedBinding.swipeRefreshLayout.setRefreshing(false);
                     if(response.code() != 200){
-                        new Handler().postDelayed(() -> loadData((page)), 200);
-                        //Toast.makeText(getActivity(),R.string.no_more_date, Toast.LENGTH_SHORT).show();
+                        if(sRetryCount > 0){
+                            --sRetryCount;
+                            new Handler().postDelayed(() -> loadData((page)), 200);
+                        }else{
+                            Toast.makeText(getActivity(),R.string.no_more_date, Toast.LENGTH_SHORT).show();
+                        }
                     }
                     if(response.isSuccessful()){
+                        sRetryCount = 5;
                         Stories stories = response.body();
                         if(stories != null){
                             mNewsFeedAdapter.addMoreData(stories.getNewsStories());
@@ -311,6 +319,7 @@ public class NewsFeedFragment extends VisibleFragment
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        Log.d(TAG,"sharedpreferences has changed");
         hasPreferencesChanged = true;
     }
 

@@ -13,6 +13,7 @@ import com.codepath.assignment.newsapp.R;
 import com.codepath.assignment.newsapp.utils.QueryPreferences;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -47,7 +48,6 @@ public class SettingsFragment extends PreferenceFragmentCompat implements
 
         setUpSortOrderPreference(sharedPreferences);
         setUpBeginDatePreference(sharedPreferences);
-
 
     }
 
@@ -87,7 +87,8 @@ public class SettingsFragment extends PreferenceFragmentCompat implements
     }
 
     private void openDatePickerDialog(){
-        DatePickerDialogFragment dialogFragment = DatePickerDialogFragment.newInstance(new Date());
+        DatePickerDialogFragment dialogFragment = DatePickerDialogFragment
+                .newInstance(parseDate(QueryPreferences.getBeginDatePref(getActivity())));
         dialogFragment.setTargetFragment(this, REQUEST_TO_OPEN_DIALOG);
         dialogFragment.show(getActivity().getSupportFragmentManager(), OPEN_DATE_PICKER_DIALOG);
     }
@@ -132,4 +133,16 @@ public class SettingsFragment extends PreferenceFragmentCompat implements
         getPreferenceScreen().getSharedPreferences()
                 .unregisterOnSharedPreferenceChangeListener(this);
     }
+
+    private Date parseDate(String strDate){
+        DateFormat fromFormat = SimpleDateFormat.getDateInstance(DateFormat.MEDIUM, Locale.US);
+        try{
+            return fromFormat.parse(strDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return new Date();
+        }
+
+    }
+
 }

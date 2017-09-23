@@ -62,7 +62,7 @@ public class ArticleSearchController {
             queries.put(BEGIN_DATE,getBeginDatePreference());
         }
 
-        queries.put(SORT_PARAM,QueryPreferences.getSortPref(mContext));
+        queries.put(SORT_PARAM,QueryPreferences.getSortPref(mContext).toLowerCase());
 
         if(query != null && !TextUtils.isEmpty(query)){
             queries.put(Q_PARAM, query);

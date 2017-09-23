@@ -3,5 +3,5 @@
     <bool name="pref_default_arts_value">true</bool>
     <bool name="pref_default_sports_value">false</bool>
     <bool name="pref_default_fashion_value">true</bool>
-    <bool name="pref_default_settings_dialog_value">true</bool>
+    <bool name="pref_default_settings_dialog_value">false</bool>
 </resources>

@@ -1,165 +1,168 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/rlDialogSetting"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-
-    <TextView
-        android:id="@+id/tvDialogTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/menu_settings_title"
-        android:layout_alignParentTop="true"
-        android:layout_centerInParent="true"
-        android:paddingTop="@dimen/dialog_padding_24dp"
-        android:paddingBottom="@dimen/dialog_margin_10dp"
-        style="@style/Base.TextAppearance.Widget.AppCompat.Toolbar.Title"/>
-
-
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/tilBeginDate"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+    <RelativeLayout
+        android:id="@+id/rlDialogSetting"
         android:layout_width="match_parent"
-        android:layout_below="@id/tvDialogTitle"
-        android:layout_centerHorizontal="true"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dialog_margin_24dp"
-        android:layout_marginLeft="@dimen/dialog_margin_24dp"
-        android:layout_marginRight="@dimen/dialog_margin_24dp"
-        android:layout_marginEnd="@dimen/dialog_margin_24dp">
+        android:layout_height="wrap_content">
 
-        <android.support.design.widget.TextInputEditText
-            android:id="@+id/etBeginDate"
-            android:hint="@string/begin_date_title"
-            android:focusable="false"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-    </android.support.design.widget.TextInputLayout>
-
-
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/tilSortOrder"
-        android:layout_width="match_parent"
-        android:layout_below="@id/tilBeginDate"
-        android:layout_centerHorizontal="true"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dialog_margin_10dp"
-        android:layout_marginStart="@dimen/dialog_margin_24dp"
-        android:layout_marginLeft="@dimen/dialog_margin_24dp"
-        android:layout_marginRight="@dimen/dialog_margin_24dp"
-        android:layout_marginEnd="@dimen/dialog_margin_24dp">
-
-        <android.support.design.widget.TextInputEditText
-            android:id="@+id/etSortOrder"
-            android:hint="@string/sort_order_title"
-            android:focusable="false"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-    </android.support.design.widget.TextInputLayout>
-
-
-    <LinearLayout
-        android:id="@+id/llDialogSetting"
-        android:layout_below="@id/tilSortOrder"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
         <TextView
-            android:id="@+id/tvNewsDeskTitle"
+            android:id="@+id/tvDialogTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/news_desk_title"
-            style="@style/Base.TextAppearance.AppCompat.SearchResult.Subtitle"
-            android:layout_gravity="center"
-            android:layout_marginBottom="@dimen/dialog_margin_8dp"
+            android:text="@string/menu_settings_title"
+            android:layout_alignParentTop="true"
+            android:layout_centerInParent="true"
+            android:paddingTop="@dimen/dialog_padding_24dp"
+            android:paddingBottom="@dimen/dialog_margin_10dp"
+            style="@style/Base.TextAppearance.Widget.AppCompat.Toolbar.Title"/>
+
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/tilBeginDate"
+            android:layout_width="match_parent"
+            android:layout_below="@id/tvDialogTitle"
+            android:layout_centerHorizontal="true"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dialog_margin_24dp"
+            android:layout_marginLeft="@dimen/dialog_margin_24dp"
+            android:layout_marginRight="@dimen/dialog_margin_24dp"
+            android:layout_marginEnd="@dimen/dialog_margin_24dp">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/etBeginDate"
+                android:hint="@string/begin_date_title"
+                android:focusable="false"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </android.support.design.widget.TextInputLayout>
+
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/tilSortOrder"
+            android:layout_width="match_parent"
+            android:layout_below="@id/tilBeginDate"
+            android:layout_centerHorizontal="true"
+            android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dialog_margin_10dp"
             android:layout_marginStart="@dimen/dialog_margin_24dp"
             android:layout_marginLeft="@dimen/dialog_margin_24dp"
             android:layout_marginRight="@dimen/dialog_margin_24dp"
-            android:layout_marginEnd="@dimen/dialog_margin_24dp"/>
+            android:layout_marginEnd="@dimen/dialog_margin_24dp">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/etSortOrder"
+                android:hint="@string/sort_order_title"
+                android:focusable="false"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </android.support.design.widget.TextInputLayout>
 
 
-        <android.support.v7.widget.AppCompatCheckBox
-            android:id="@+id/cbArts"
-            android:checked="true"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/llDialogSetting"
+            android:layout_below="@id/tilSortOrder"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/dialog_margin_8dp"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/tvNewsDeskTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/news_desk_title"
+                style="@style/Base.TextAppearance.AppCompat.SearchResult.Subtitle"
+                android:layout_gravity="center"
+                android:layout_marginBottom="@dimen/dialog_margin_8dp"
+                android:layout_marginTop="@dimen/dialog_margin_10dp"
+                android:layout_marginStart="@dimen/dialog_margin_24dp"
+                android:layout_marginLeft="@dimen/dialog_margin_24dp"
+                android:layout_marginRight="@dimen/dialog_margin_24dp"
+                android:layout_marginEnd="@dimen/dialog_margin_24dp"/>
+
+
+            <android.support.v7.widget.AppCompatCheckBox
+                android:id="@+id/cbArts"
+                android:checked="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dialog_margin_8dp"
+                android:layout_marginStart="@dimen/dialog_margin_24dp"
+                android:layout_marginLeft="@dimen/dialog_margin_24dp"
+                android:layout_marginRight="@dimen/dialog_margin_24dp"
+                android:layout_marginEnd="@dimen/dialog_margin_24dp"
+                style="@style/Base.TextAppearance.AppCompat.Medium"
+                android:text="@string/arts_value"/>
+
+            <android.support.v7.widget.AppCompatCheckBox
+                android:id="@+id/cbFashionAndStyle"
+                android:checked="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dialog_margin_8dp"
+                android:layout_marginStart="@dimen/dialog_margin_24dp"
+                android:layout_marginLeft="@dimen/dialog_margin_24dp"
+                android:layout_marginRight="@dimen/dialog_margin_24dp"
+                android:layout_marginEnd="@dimen/dialog_margin_24dp"
+                style="@style/Base.TextAppearance.AppCompat.Medium"
+                android:text="@string/fashion_title"/>
+
+            <android.support.v7.widget.AppCompatCheckBox
+                android:id="@+id/cbSports"
+                android:checked="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/dialog_margin_8dp"
+                android:layout_marginStart="@dimen/dialog_margin_24dp"
+                android:layout_marginLeft="@dimen/dialog_margin_24dp"
+                android:layout_marginRight="@dimen/dialog_margin_24dp"
+                android:layout_marginEnd="@dimen/dialog_margin_24dp"
+                style="@style/Base.TextAppearance.AppCompat.Medium"
+                android:text="@string/sports_title"/>
+        </LinearLayout>
+
+        <android.support.v7.widget.SwitchCompat
+            android:id="@+id/scModalOverlay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/llDialogSetting"
+            android:layout_marginTop="@dimen/dialog_margin_10dp"
             android:layout_marginStart="@dimen/dialog_margin_24dp"
             android:layout_marginLeft="@dimen/dialog_margin_24dp"
             android:layout_marginRight="@dimen/dialog_margin_24dp"
             android:layout_marginEnd="@dimen/dialog_margin_24dp"
-            style="@style/Base.TextAppearance.AppCompat.Medium"
-            android:text="@string/arts_value"/>
-
-        <android.support.v7.widget.AppCompatCheckBox
-            android:id="@+id/cbFashionAndStyle"
-            android:checked="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/dialog_margin_8dp"
-            android:layout_marginStart="@dimen/dialog_margin_24dp"
-            android:layout_marginLeft="@dimen/dialog_margin_24dp"
-            android:layout_marginRight="@dimen/dialog_margin_24dp"
-            android:layout_marginEnd="@dimen/dialog_margin_24dp"
+            android:text="@string/modern_overlay_title"
             style="@style/Base.TextAppearance.AppCompat.Medium"
-            android:text="@string/fashion_title"/>
+            />
 
-        <android.support.v7.widget.AppCompatCheckBox
-            android:id="@+id/cbSports"
-            android:checked="true"
+        <LinearLayout
+            android:id="@+id/llBtnsDialogSetting"
+            android:orientation="horizontal"
             android:layout_width="wrap_content"
+            android:layout_alignParentEnd="true"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/dialog_margin_8dp"
-            android:layout_marginStart="@dimen/dialog_margin_24dp"
-            android:layout_marginLeft="@dimen/dialog_margin_24dp"
-            android:layout_marginRight="@dimen/dialog_margin_24dp"
-            android:layout_marginEnd="@dimen/dialog_margin_24dp"
-            style="@style/Base.TextAppearance.AppCompat.Medium"
-            android:text="@string/sports_title"/>
-    </LinearLayout>
+            android:layout_marginTop="@dimen/dialog_margin_10dp"
+            android:layout_below="@id/scModalOverlay"
+            android:layout_alignParentRight="true">
 
-    <android.support.v7.widget.SwitchCompat
-        android:id="@+id/scModalOverlay"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/llDialogSetting"
-        android:layout_marginTop="@dimen/dialog_margin_10dp"
-        android:layout_marginStart="@dimen/dialog_margin_24dp"
-        android:layout_marginLeft="@dimen/dialog_margin_24dp"
-        android:layout_marginRight="@dimen/dialog_margin_24dp"
-        android:layout_marginEnd="@dimen/dialog_margin_24dp"
-        android:layout_marginBottom="@dimen/dialog_margin_8dp"
-        android:text="@string/modern_overlay_title"
-        style="@style/Base.TextAppearance.AppCompat.Medium"
-    />
+            <Button
+                android:id="@+id/btnCancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@android:string/cancel"
+                style="@style/Widget.AppCompat.Button.Borderless.Colored"/>
+            <Button
+                android:id="@+id/btnSave"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/save_settings"
+                style="@style/Widget.AppCompat.Button.Borderless.Colored"/>
+        </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/llBtnsDialogSetting"
-        android:orientation="horizontal"
-        android:layout_width="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dialog_margin_10dp"
-        android:layout_below="@id/scModalOverlay"
-        android:layout_alignParentRight="true">
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@android:string/cancel"
-            style="@style/Widget.AppCompat.Button.Borderless.Colored"/>
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/save_settings"
-            style="@style/Widget.AppCompat.Button.Borderless.Colored"/>
-    </LinearLayout>
-
-</RelativeLayout>
+    </RelativeLayout>
 
 
+
+</layout>

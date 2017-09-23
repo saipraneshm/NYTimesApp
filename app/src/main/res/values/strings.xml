@@ -30,11 +30,11 @@
 
     <!-- Label for list preference individual values -->
 
-    <string name="pref_sort_label_older">Oldest</string>
+    <string name="pref_sort_label_older">oldest</string>
     <!-- Value in shared preferences for older option -->
     <string name="pref_sort_older_value" translatable="false">oldest</string>
 
-    <string name="pref_sort_label_newer">Newest</string>
+    <string name="pref_sort_label_newer">newest</string>
     <string name="pref_sort_newer_value" translatable="false">newest</string>
 
     <string name="pref_news_desk_setting">News Desk</string>
