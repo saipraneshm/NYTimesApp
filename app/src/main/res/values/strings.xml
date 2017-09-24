@@ -61,7 +61,7 @@
     <string name="sports_title">Sports</string>
     <string name="modern_overlay_title">Modern Overlay</string>
     <string name="save_settings">Save</string>
-    <string name="pref_settings_dialog_title">Modal Overlay</string>
+    <string name="pref_settings_dialog_title">Modern Overlay</string>
     <string name="pref_settings_dialog_key">settings_dialog_key</string>
     <string name="modelOverlaySummary">Displays a dialog</string>
     <string name="broadcast_event_preference_changed">broadcast_event_preferences_changed</string>
