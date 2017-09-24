@@ -3,6 +3,11 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools">
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
     <RelativeLayout
         android:id="@+id/rlDialogSetting"
         android:layout_width="match_parent"
@@ -15,7 +20,7 @@
             android:text="@string/menu_settings_title"
             android:layout_alignParentTop="true"
             android:layout_centerInParent="true"
-            android:paddingTop="@dimen/dialog_padding_24dp"
+            android:paddingTop="@dimen/dialog_padding_16dp"
             android:paddingBottom="@dimen/dialog_margin_10dp"
             style="@style/Base.TextAppearance.Widget.AppCompat.Toolbar.Title"/>
 
@@ -23,7 +28,7 @@
         <android.support.design.widget.TextInputLayout
             android:id="@+id/tilBeginDate"
             android:layout_width="match_parent"
-            android:layout_below="@id/tvDialogTitle"
+            android:layout_below="@id/scEmbeddedBrowser"
             android:layout_centerHorizontal="true"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dialog_margin_24dp"
@@ -66,6 +71,12 @@
             android:layout_below="@id/tilSortOrder"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/dialog_margin_8dp"
+            android:layout_marginTop="@dimen/dialog_margin_10dp"
+            android:layout_marginStart="@dimen/dialog_margin_24dp"
+            android:layout_marginLeft="@dimen/dialog_margin_24dp"
+            android:layout_marginRight="@dimen/dialog_margin_24dp"
+            android:layout_marginEnd="@dimen/dialog_margin_24dp"
             android:orientation="vertical">
             <TextView
                 android:id="@+id/tvNewsDeskTitle"
@@ -74,12 +85,7 @@
                 android:text="@string/news_desk_title"
                 style="@style/Base.TextAppearance.AppCompat.SearchResult.Subtitle"
                 android:layout_gravity="center"
-                android:layout_marginBottom="@dimen/dialog_margin_8dp"
-                android:layout_marginTop="@dimen/dialog_margin_10dp"
-                android:layout_marginStart="@dimen/dialog_margin_24dp"
-                android:layout_marginLeft="@dimen/dialog_margin_24dp"
-                android:layout_marginRight="@dimen/dialog_margin_24dp"
-                android:layout_marginEnd="@dimen/dialog_margin_24dp"/>
+               />
 
 
             <android.support.v7.widget.AppCompatCheckBox
@@ -126,7 +132,7 @@
             android:id="@+id/scModalOverlay"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/llDialogSetting"
+            android:layout_below="@id/tvDialogTitle"
             android:layout_marginTop="@dimen/dialog_margin_10dp"
             android:layout_marginStart="@dimen/dialog_margin_24dp"
             android:layout_marginLeft="@dimen/dialog_margin_24dp"
@@ -137,6 +143,21 @@
             style="@style/Base.TextAppearance.AppCompat.Medium"
             />
 
+        <android.support.v7.widget.SwitchCompat
+            android:id="@+id/scEmbeddedBrowser"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/scModalOverlay"
+            android:layout_marginTop="@dimen/dialog_margin_10dp"
+            android:layout_marginStart="@dimen/dialog_margin_24dp"
+            android:layout_marginLeft="@dimen/dialog_margin_24dp"
+            android:layout_marginRight="@dimen/dialog_margin_24dp"
+            android:layout_marginEnd="@dimen/dialog_margin_24dp"
+            android:layout_marginBottom="@dimen/dialog_margin_8dp"
+            android:text="@string/pref_embedded_browser_label"
+            style="@style/Base.TextAppearance.AppCompat.Medium"
+            />
+
         <LinearLayout
             android:id="@+id/llBtnsDialogSetting"
             android:orientation="horizontal"
@@ -144,7 +165,7 @@
             android:layout_alignParentEnd="true"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dialog_margin_10dp"
-            android:layout_below="@id/scModalOverlay"
+            android:layout_below="@id/llDialogSetting"
             android:layout_alignParentRight="true">
 
             <Button
@@ -163,6 +184,6 @@
 
     </RelativeLayout>
 
-
+    </ScrollView>
 
 </layout>

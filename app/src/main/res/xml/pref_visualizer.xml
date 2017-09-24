@@ -9,6 +9,13 @@
         android:summary="@string/modelOverlaySummary"
         />
 
+    <SwitchPreferenceCompat
+        android:defaultValue="@bool/pref_default_embedded_browser_value"
+        android:key="@string/pref_embedded_browser_key"
+        android:title="@string/pref_embedded_browser_label"
+        android:summary="@string/pref_embedded_browser_summary"
+        />
+
     <PreferenceCategory android:title="@string/pref_news_desk_setting">
         <CheckBoxPreference
             android:defaultValue="@bool/pref_default_arts_value"

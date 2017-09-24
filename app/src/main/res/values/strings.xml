@@ -66,6 +66,10 @@
     <string name="modelOverlaySummary">Displays a dialog</string>
     <string name="broadcast_event_preference_changed">broadcast_event_preferences_changed</string>
     <string name="has_preference_changed_key">has_preference_changed_key</string>
+    <string name="pref_embedded_browser_key"> pref_embedded_browser_key</string>
+    <string name="pref_embedded_browser_label">Embedded Browser</string>
+    <string name="pref_embedded_browser_summary">Displays Web Pages in embedded browser</string>
+
 
 
 </resources>
