@@ -3,7 +3,9 @@ package com.codepath.assignment.newsapp.fragment;
 
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.databinding.DataBindingUtil;
 import android.graphics.Bitmap;
@@ -17,6 +19,7 @@ import android.support.customtabs.CustomTabsIntent;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
@@ -68,6 +71,17 @@ public class NewsFeedFragment extends VisibleFragment
     private Boolean hasPreferencesChanged = false;
     private Boolean hasInternet = true;
     private static int sRetryCount = 5;
+    private BroadcastReceiver mPreferenceReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            hasPreferencesChanged = intent
+                    .getBooleanExtra(getString(R.string.has_preference_changed_key),false);
+            if(hasInternet && hasPreferencesChanged){
+                makeNewSearch();
+            }
+
+        }
+    };
 
     public NewsFeedFragment() {
         // Required empty public constructor
@@ -94,12 +108,23 @@ public class NewsFeedFragment extends VisibleFragment
 
     @Override
     public void onResume() {
+        LocalBroadcastManager.getInstance(getActivity())
+                .registerReceiver(mPreferenceReceiver,
+                        new IntentFilter(getString(R.string.broadcast_event_preference_changed)));
         super.onResume();
         Log.d(TAG,"onResume has been called");
         if(hasPreferencesChanged){
             Log.d(TAG,"calling make search <- preferences had changed");
             makeNewSearch();
         }
+
+
+    }
+
+    @Override
+    public void onPause() {
+        LocalBroadcastManager.getInstance(getActivity()).unregisterReceiver(mPreferenceReceiver);
+        super.onPause();
     }
 
     @Override
