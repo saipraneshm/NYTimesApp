@@ -45,6 +45,7 @@ public class EmbeddedBrowserFragment extends VisibleFragment {
     private NewsStory mNewsStory;
 
     private FragmentEmbeddedBrowserBinding mBinding;
+    private ConnectivityBroadcastReceiver receiver;
 
     public EmbeddedBrowserFragment() {
         // Required empty public constructor
@@ -159,7 +160,7 @@ public class EmbeddedBrowserFragment extends VisibleFragment {
 
     @Override
     protected BroadcastReceiver createConnectivityBroadcastReceiver() {
-        ConnectivityBroadcastReceiver receiver = new ConnectivityBroadcastReceiver();
+        receiver = new ConnectivityBroadcastReceiver();
         receiver.setListener(isConnected -> {
             mBinding.webView.setNetworkAvailable(isConnected);
             if(!isConnected){
@@ -174,4 +175,8 @@ public class EmbeddedBrowserFragment extends VisibleFragment {
             mBinding.webView.goBack();
         return mBinding.webView.canGoBack();
     }
+
+    
+
+
 }

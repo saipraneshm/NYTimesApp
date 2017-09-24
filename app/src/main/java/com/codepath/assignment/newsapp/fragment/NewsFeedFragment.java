@@ -113,9 +113,9 @@ public class NewsFeedFragment extends VisibleFragment
                 .registerReceiver(mPreferenceReceiver,
                         new IntentFilter(getString(R.string.broadcast_event_preference_changed)));
         super.onResume();
-        Log.d(TAG,"onResume has been called");
+        //Log.d(TAG,"onResume has been called");
         if(hasPreferencesChanged){
-            Log.d(TAG,"calling make search <- preferences had changed");
+            //Log.d(TAG,"calling make search <- preferences had changed");
             makeNewSearch();
         }
 
@@ -180,7 +180,7 @@ public class NewsFeedFragment extends VisibleFragment
         mScrollListener = new EndlessRecyclerViewScrollListener(gridLayoutManager) {
             @Override
             public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
-                Log.d(TAG,"calling load more " + page);
+               // Log.d(TAG,"calling load more " + page);
                     loadData(page);
             }
         };
@@ -226,8 +226,8 @@ public class NewsFeedFragment extends VisibleFragment
         int requestCode = 100;
         return PendingIntent.getActivity(getActivity(),
                 requestCode,
-                                                                intent,
-                                                                PendingIntent.FLAG_UPDATE_CURRENT);
+                intent,
+                PendingIntent.FLAG_UPDATE_CURRENT);
     }
 
     private void loadData(int page){
@@ -238,7 +238,7 @@ public class NewsFeedFragment extends VisibleFragment
             call.enqueue(new Callback<Stories>() {
                 @Override
                 public void onResponse(Call<Stories> call, Response<Stories> response) {
-                    Log.d(TAG,"Response code--> "+response.code());
+                   // Log.d(TAG,"Response code--> "+response.code());
                     mNewsFeedBinding.swipeRefreshLayout.setRefreshing(false);
                     if(response.code() != 200){
                         if(sRetryCount > 0){
@@ -327,7 +327,7 @@ public class NewsFeedFragment extends VisibleFragment
                 R.string.not_connected_to_internet,
                 Snackbar.LENGTH_INDEFINITE);
         snackbar.setActionTextColor
-                (ContextCompat.getColor(getActivity(),R.color.colorPrimary))
+                (ContextCompat.getColor(getActivity(),R.color.colorGreen))
                 .setAction(android.R.string.cancel,
                         view -> snackbar.dismiss()).show();
     }
@@ -354,7 +354,7 @@ public class NewsFeedFragment extends VisibleFragment
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-        Log.d(TAG,"sharedpreferences has changed");
+       // Log.d(TAG,"sharedpreferences has changed");
         hasPreferencesChanged = true;
     }
 

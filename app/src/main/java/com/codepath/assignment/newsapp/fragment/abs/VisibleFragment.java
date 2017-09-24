@@ -14,17 +14,18 @@ public abstract class VisibleFragment extends Fragment {
     public abstract void handleSearchQuery(String query);
 
     private BroadcastReceiver connectivityReceiver = null;
+
     @Override
-    public void onStart() {
-        super.onStart();
+    public void onResume() {
+        super.onResume();
         connectivityReceiver = createConnectivityBroadcastReceiver();
         IntentFilter intentFilter = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
         getActivity().registerReceiver(connectivityReceiver, intentFilter);
     }
 
     @Override
-    public void onStop() {
-        super.onStop();
+    public void onPause() {
+        super.onPause();
         getActivity().unregisterReceiver(connectivityReceiver);
     }
 
