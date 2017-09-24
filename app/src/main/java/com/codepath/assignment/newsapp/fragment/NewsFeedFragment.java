@@ -34,6 +34,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.codepath.assignment.newsapp.R;
+import com.codepath.assignment.newsapp.activity.EmbeddedBrowserActivity;
 import com.codepath.assignment.newsapp.adapter.NewsFeedAdapter;
 import com.codepath.assignment.newsapp.databinding.FragmentNewsFeedBinding;
 import com.codepath.assignment.newsapp.fragment.abs.VisibleFragment;
@@ -188,8 +189,12 @@ public class NewsFeedFragment extends VisibleFragment
         ItemClickSupport.addTo(mNewsFeedBinding.rvVertical)
                 .setOnItemClickListener((recyclerView, position, v) -> {
                     Log.d(TAG, mNewsFeedAdapter.getNewsStory(position).toString());
-                    if(hasInternet)
-                        launchChromeTab(mNewsFeedAdapter.getNewsStory(position).getWebUrl());
+                    if(hasInternet){
+                        //launchChromeTab(mNewsFeedAdapter.getNewsStory(position).getWebUrl());
+                        startActivity(EmbeddedBrowserActivity.newIntent(getActivity(),
+                                mNewsFeedAdapter.getNewsStory(position)));
+                    }
+
                 });
 
     }
@@ -274,7 +279,7 @@ public class NewsFeedFragment extends VisibleFragment
 
     @Override
     public void handleSearchQuery(String query) {
-       // Log.d(TAG,"Got the query: " + query);
+        Log.d(TAG,"Got the query: " + query);
         mQuery = query;
         makeNewSearch();
     }

@@ -8,5 +8,4 @@
     <item android:title="@string/pref_sort_label_newer"
           android:id="@+id/action_sort_by_newest"/>
 
-
 </menu>
