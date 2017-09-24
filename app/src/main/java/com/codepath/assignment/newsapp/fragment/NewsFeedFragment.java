@@ -191,8 +191,13 @@ public class NewsFeedFragment extends VisibleFragment
                     Log.d(TAG, mNewsFeedAdapter.getNewsStory(position).toString());
                     if(hasInternet){
                         //launchChromeTab(mNewsFeedAdapter.getNewsStory(position).getWebUrl());
-                        startActivity(EmbeddedBrowserActivity.newIntent(getActivity(),
-                                mNewsFeedAdapter.getNewsStory(position)));
+                        if(QueryPreferences.getEmbeddedBrowserPref(getActivity())){
+                            startActivity(EmbeddedBrowserActivity.newIntent(getActivity(),
+                                    mNewsFeedAdapter.getNewsStory(position)));
+                        }else{
+                            launchChromeTab(mNewsFeedAdapter.getNewsStory(position).getWebUrl());
+                        }
+
                     }
 
                 });

@@ -65,7 +65,7 @@ public class SettingsDialogFragment extends DialogFragment
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        mBinding = DataBindingUtil.inflate(inflater,R.layout.dialog_settings,container,false);
+        mBinding = DataBindingUtil.inflate(inflater, R.layout.dialog_settings,container,false);
         PreferenceManager.getDefaultSharedPreferences(getActivity())
                 .registerOnSharedPreferenceChangeListener(this);
         return mBinding.getRoot();
@@ -85,7 +85,8 @@ public class SettingsDialogFragment extends DialogFragment
         mBinding.cbArts.setChecked(QueryPreferences.getArtsPref(getActivity()));
         mBinding.cbSports.setChecked(QueryPreferences.getSportsPref(getActivity()));
         mBinding.cbFashionAndStyle.setChecked(QueryPreferences.getFashionPref(getActivity()));
-        mBinding.scModalOverlay.setChecked(QueryPreferences.getSettingsDialoPref(getActivity()));
+        mBinding.scOverlay.setChecked(QueryPreferences.getSettingsDialoPref(getActivity()));
+        mBinding.scBrowser.setChecked(QueryPreferences.getEmbeddedBrowserPref(getActivity()));
         mBinding.etSortOrder.setOnClickListener(view -> showSortOrderPopUp());
         mBinding.etBeginDate.setOnClickListener(view -> showDateDialogPicker());
         mBinding.btnSave.setOnClickListener(view -> {
@@ -102,10 +103,11 @@ public class SettingsDialogFragment extends DialogFragment
     private void updateSharedPreferences(){
         QueryPreferences.setSortPref(getActivity(),mBinding.etSortOrder.getText().toString());
         QueryPreferences.setBeginDatePref(getActivity(),selectedDate);
-        QueryPreferences.setSettingsDialogPref(getActivity(),mBinding.scModalOverlay.isChecked());
+        QueryPreferences.setSettingsDialogPref(getActivity(),mBinding.scOverlay.isChecked());
         QueryPreferences.setArtsPref(getActivity(),mBinding.cbArts.isChecked());
         QueryPreferences.setFashionPref(getActivity(),mBinding.cbFashionAndStyle.isChecked());
         QueryPreferences.setSportsPref(getActivity(),mBinding.cbSports.isChecked());
+        QueryPreferences.setEmbeddedBrowserPref(getActivity(),mBinding.scBrowser.isChecked());
     }
 
     private void showSortOrderPopUp(){

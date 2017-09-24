@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
     <ScrollView
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
@@ -25,10 +23,38 @@
             style="@style/Base.TextAppearance.Widget.AppCompat.Toolbar.Title"/>
 
 
+        <android.support.v7.widget.SwitchCompat
+            android:id="@+id/scOverlay"
+            android:layout_below="@id/tvDialogTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dialog_margin_10dp"
+            android:layout_marginStart="@dimen/dialog_margin_24dp"
+            android:layout_marginLeft="@dimen/dialog_margin_24dp"
+            android:layout_marginRight="@dimen/dialog_margin_24dp"
+            android:layout_marginEnd="@dimen/dialog_margin_24dp"
+            android:layout_marginBottom="@dimen/dialog_margin_8dp"
+            android:text="@string/modern_overlay_title"
+            style="@style/Base.TextAppearance.AppCompat.Medium"/>
+
+        <android.support.v7.widget.SwitchCompat
+            android:id="@+id/scBrowser"
+            android:layout_below="@id/scOverlay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dialog_margin_10dp"
+            android:layout_marginStart="@dimen/dialog_margin_24dp"
+            android:layout_marginLeft="@dimen/dialog_margin_24dp"
+            android:layout_marginRight="@dimen/dialog_margin_24dp"
+            android:layout_marginEnd="@dimen/dialog_margin_24dp"
+            android:layout_marginBottom="@dimen/dialog_margin_8dp"
+            android:text="@string/pref_embedded_browser_label"
+            style="@style/Base.TextAppearance.AppCompat.Medium"/>
+
         <android.support.design.widget.TextInputLayout
             android:id="@+id/tilBeginDate"
             android:layout_width="match_parent"
-            android:layout_below="@id/scModalOverlay"
+            android:layout_below="@id/scBrowser"
             android:layout_centerHorizontal="true"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dialog_margin_24dp"
@@ -128,20 +154,6 @@
                 android:text="@string/sports_title"/>
         </LinearLayout>
 
-        <android.support.v7.widget.SwitchCompat
-            android:id="@+id/scModalOverlay"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/tvDialogTitle"
-            android:layout_marginTop="@dimen/dialog_margin_10dp"
-            android:layout_marginStart="@dimen/dialog_margin_24dp"
-            android:layout_marginLeft="@dimen/dialog_margin_24dp"
-            android:layout_marginRight="@dimen/dialog_margin_24dp"
-            android:layout_marginEnd="@dimen/dialog_margin_24dp"
-            android:layout_marginBottom="@dimen/dialog_margin_8dp"
-            android:text="@string/modern_overlay_title"
-            style="@style/Base.TextAppearance.AppCompat.Medium"
-            />
 
 
         <LinearLayout

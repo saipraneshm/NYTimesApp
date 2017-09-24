@@ -92,4 +92,19 @@ public class QueryPreferences {
                 .getBoolean(context.getString(R.string.pref_settings_dialog_key),
                         context.getResources().getBoolean(R.bool.pref_default_settings_dialog_value));
     }
+
+    public static void setEmbeddedBrowserPref(Context context, Boolean isEmbeddedBrowserEnabled){
+        PreferenceManager.getDefaultSharedPreferences(context)
+                .edit()
+                .putBoolean(context.getString(R.string.pref_embedded_browser_key)
+                        ,isEmbeddedBrowserEnabled)
+                .apply();
+    }
+
+    public static boolean getEmbeddedBrowserPref(Context context){
+        return PreferenceManager.getDefaultSharedPreferences(context)
+                .getBoolean(context.getString(R.string.pref_embedded_browser_key),
+                        context.getResources()
+                                .getBoolean(R.bool.pref_default_embedded_browser_value));
+    }
 }
