@@ -238,14 +238,13 @@ public class NewsFeedFragment extends VisibleFragment
             call.enqueue(new Callback<Stories>() {
                 @Override
                 public void onResponse(Call<Stories> call, Response<Stories> response) {
-                   // Log.d(TAG,"Response code--> "+response.code());
                     mNewsFeedBinding.swipeRefreshLayout.setRefreshing(false);
                     if(response.code() != 200){
                         if(sRetryCount > 0){
                             --sRetryCount;
                             new Handler().postDelayed(() -> loadData((page)), 200);
                         }else{
-                            Toast.makeText(getActivity(),R.string.no_more_date, Toast.LENGTH_SHORT).show();
+                            showNoMoreDataToast();
                         }
                     }
                     if(response.isSuccessful()){
@@ -253,15 +252,19 @@ public class NewsFeedFragment extends VisibleFragment
                         Stories stories = response.body();
                         if(stories != null){
                             mNewsFeedAdapter.addMoreData(stories.getNewsStories());
+                        }else{
+                            showNoMoreDataToast();
                         }
                     }else{
                         Log.e("RESPONSE", String.valueOf(response.errorBody()));
+                        showNoMoreDataToast();
                     }
                 }
 
                 @Override
                 public void onFailure(Call<Stories> call, Throwable t) {
                     mNewsFeedBinding.swipeRefreshLayout.setRefreshing(false);
+                    showNoMoreDataToast();
                     t.printStackTrace();
                 }
             });
@@ -270,6 +273,10 @@ public class NewsFeedFragment extends VisibleFragment
             showNoInternetConnectionSnackBar();
         }
 
+    }
+
+    private void showNoMoreDataToast(){
+        Toast.makeText(getActivity(),R.string.no_data_to_display, Toast.LENGTH_SHORT).show();
     }
 
     //Resets state whenever a new search is made

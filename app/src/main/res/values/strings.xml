@@ -47,7 +47,8 @@
     <string name="subscribed_articles_title">Subscribed News Stories</string>
     <string name="lorem_ipsum">\"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.\"</string>
     <string name="all_news_stories_title">All Stories</string>
-    <string name="no_more_date">API error. Couldn\'t load more data</string>
+    <string name="no_more_data">API error. Couldn\'t load more data</string>
+    <string name="no_data_to_display">No more results to load</string>
     <string name="published_date">Published date</string>
     <string name="no_internet_dialog_title">Not Connected To Internet !</string>
     <string name="no_internet_dialog_message">Please try connecting to the internet to continue browsing news article</string>
