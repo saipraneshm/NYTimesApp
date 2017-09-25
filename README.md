@@ -43,6 +43,8 @@ The following **additional** features are implemented:
 * [x] Customized Chrome Tabs toolbar to match the AppTheme
 * [x] Added slide transitions to Chrome Tabs for a better user experience.
 * [x] LocalBroadCastManager to notify for changes in the App.
+* [x] SwipeToRefresh feature to update the results.
+* [x] Added custom retry logic incase of bad response from network.
 
 
 ## Video Walkthrough
