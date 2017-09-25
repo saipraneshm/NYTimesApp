@@ -48,7 +48,7 @@ The following **additional** features are implemented:
 ## Video Walkthrough
 
 Here's a walkthrough of implemented user stories:
-[Video Walkthrough](https://www.dropbox.com/s/l66ec90hg0svote/NyTimesRecording.mp4?dl=0) 
+[Video Walkthrough](https://www.dropbox.com/s/2e50f8r47y9hm4e/NyTimesVideoWalkthrough.mp4?dl=0) 
 
 ## Notes
 
